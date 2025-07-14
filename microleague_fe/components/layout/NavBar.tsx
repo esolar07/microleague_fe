@@ -3,7 +3,6 @@ import Image from "next/image";
 import Container from "@/components/layout/Container";
 const NavBar = () => {
     return (
-
         <nav className="sticky top-0 border-b z-50 bg-gray-700">
             <Container>
                 <div className="flex justify-between items-center gap-8">

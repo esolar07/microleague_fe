@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Microleague Sports",
-  description: "Cross-end Fantasy Sport Matchups.",
+  description: "Cross-era Fantasy Sport Matchups.",
 };
 
 export default function RootLayout({
