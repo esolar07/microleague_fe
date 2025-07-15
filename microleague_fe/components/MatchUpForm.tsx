@@ -1,100 +1,58 @@
 "use client";
-import React, {useState, FormEvent, ChangeEvent, useEffect} from 'react';
+import React, {useState, FormEvent, ChangeEvent} from 'react';
 import Form from 'next/form'
 import Container from "@/components/layout/Container";
+import {createMatchUp, fetchSeasons, fetchTeams} from '@/services/api';
+import { MatchUp, Team } from '@/types/matchup';
+
 import {debug} from "node:util";
 
-interface MatchUpData {
-    sport: string;
-    homeTeamYearEra: string;
-    homeTeamName: string;
-    visitingTeamYearEra: string;
-    visitingTeamName: string;
-}
 const MatchUpForm = () => {
-    const [formData, setFormData] = useState<MatchUpData>({
+    const [formData, setFormData] = useState<MatchUp>({
         sport: '',
-        homeTeamYearEra: '',
+        homeTeamSeason: '',
         homeTeamName: '',
-        visitingTeamYearEra: '',
-        visitingTeamName: '',
+        awayTeamSeason: '',
+        awayTeamName: '',
     });
-    const [eras, setEras] = useState<string[]>([]);
-    const [homeTeams, setHomeTeams] = useState<string[]>([]);
-    const [awayTeams, setAwayTeams] = useState<string[]>([]);
+    const [seasons, setSeasons] = useState<string[]>([]);
+    const [homeTeams, setHomeTeams] = useState<Team[]>([]);
+    const [awayTeams, setAwayTeams] = useState<Team[]>([]);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [submitMessage, setSubmitMessage] = useState<string | null>(null);
 
-    const getAllSportEras = async (sport: string) => {
-        try {
-            const response = await fetch(`http://localhost:3001/api/v1/seasons/${sport}`);
-            if (!response.ok) {
-                throw new Error('Failed to fetch sport eras.');
-            }
-            const data = await response.json();
-            setEras(data.data);
-            // setError(null);
-        } catch (e: any) {
-            console.error('Error fetching teams:', e);
-            // setError(e.message);
-            setEras([]); // Clear teams on error
-        }
-    }
-
-    const getAllTeamsForEra = async (era: string) => {
-        try {
-            const response = await fetch(`http://localhost:3001/api/v1/seasons/${formData.sport}/${era}`);
-            if (!response.ok) {
-                throw new Error('Failed to fetch sport eras.');
-            }
-            const data = await response.json();
-            return data.data;
-        } catch (e: any) {
-            console.error('Error fetching teams:', e);
-            return [];
-        }
-    }
-
-    const handleSelectChange = async (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-        const { name, value } = e.target;
-
-        debugger
-        if (name === 'sport' && value) {
-            getAllSportEras(value)
-        }
-        if ((name === "homeTeamYearEra" || name === "awayTeamYearEra") && value){
-            const teamList = await getAllTeamsForEra(value);
-            if (name === "homeTeamYearEra" ) {
-                setHomeTeams(teamList);
-            }
-            if (name === "awayTeamYearEra" ) {
-                setAwayTeams(teamList);
-            }
-        }
+    const handleSportChange = async (sport: string) => {
         setFormData((prevData) => ({
-            ...prevData,
-            [name]: value,
+            ...prevData, sport,
         }));
+        setHomeTeams([]);
+        setAwayTeams([]);
+        const response = await fetchSeasons(sport);
+        setSeasons(response);
+    }
+
+    const handleSeasonChange = async (season: string, isHome: boolean) => {
+        const teams = await fetchTeams(formData.sport, season);
+        if (isHome) {
+            setFormData(prev => ({ ...prev, homeTeamSeason: season, homeTeamName: "" }));
+            setHomeTeams(teams);
+        }
+        if (!isHome) {
+            setFormData(prev => ({ ...prev, awayTeamSeason: season, awayTeamName: "" }));
+            setAwayTeams(teams);
+        }
     };
-    const handleMatchUpCreation = (e: FormEvent<HTMLFormElement>) => {
+
+    const handleTeamChange = async (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+        const { name, value } = e.target;
+        setFormData((prevData) => ({...prevData, [name]: value,}));
+    };
+
+    const handleMatchUpCreation = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setIsSubmitting(true);
         setSubmitMessage(null);
-        alert('Form submitted! Check console for data.');
-        try {
-            // await fetch(`${process.env.MICROLEAGUE_BASE_API}/matchups`, {
-            //   method: 'POST',
-            //   headers: {
-            //     'Content-Type': 'application/json',
-            //   },
-            //   body: JSON.stringify(formData),
-            // });
-        } catch (e) {
-            console.error("Form submission error:", e);
-            setSubmitMessage("Failed to submit match up form. Please try again.");
-        } finally {
-            setIsSubmitting(false);
-        }
+        // const matchUpDetails = await createMatchUp(formData)
     };
 
     return (
@@ -117,7 +75,7 @@ const MatchUpForm = () => {
                                             id="sport"
                                             name="sport"
                                             value={formData.sport}
-                                            onChange={handleSelectChange}
+                                            onChange={(e) => handleSportChange(e.target.value)}
                                             required
                                         >
                                             <option value="">Select a sport</option>
@@ -131,19 +89,19 @@ const MatchUpForm = () => {
 
                             <fieldset className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                             <div className="sm:col-span-3">
-                                    <label htmlFor="homeTeamYearEra" className="block text-sm/6 font-medium text-gray-900">Home Team Season/Era:</label>
+                                    <label htmlFor="homeTeamSeason" className="block text-sm/6 font-medium text-gray-900">Home Team Season:</label>
                                     <div className="mt-2">
                                         <select
                                             className="block w-full appearance-none rounded-md bg-white py-1.5 pr-8 pl-3 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
-                                            id="homeTeamYearEra"
-                                            name="homeTeamYearEra"
-                                            value={formData.homeTeamName}
-                                            onChange={handleSelectChange}
+                                            id="homeTeamSeason"
+                                            name="homeTeamSeason"
+                                            value={formData.homeTeamSeason}
+                                            onChange={(e) => handleSeasonChange(e.target.value, true)}
                                             required
                                         >
-                                            <option value="">Select Year/Era</option>
-                                            {eras.map((era) => (
-                                                <option key={era} value={era}>{era}</option>
+                                            <option value="">Select Season</option>
+                                            {seasons.map((season) => (
+                                                <option key={season} value={season}>{season}</option>
                                             ))}
                                         </select>
                                     </div>
@@ -156,8 +114,8 @@ const MatchUpForm = () => {
                                             className="block w-full appearance-none rounded-md bg-white py-1.5 pr-8 pl-3 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
                                             id="homeTeamName"
                                             name="homeTeamName"
-                                            value={formData.homeTeamYearEra}
-                                            onChange={handleSelectChange}
+                                            value={formData.homeTeamName}
+                                            onChange={handleTeamChange}
                                         >
                                             <option value="">Select Home Team</option>
                                             {homeTeams.map((homeTeam) => (
@@ -170,39 +128,38 @@ const MatchUpForm = () => {
 
                             <fieldset className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                                 <div className="sm:col-span-3">
-                                    <label htmlFor="visitingTeamYearEra"
-                                           className="block text-sm/6 font-medium text-gray-900">Away Team
-                                        Year/Era:</label>
+                                    <label htmlFor="awayTeamSeason"
+                                           className="block text-sm/6 font-medium text-gray-900">Away Team Season:</label>
                                     <div className="mt-2 grid grid-cols-1">
                                         <select
                                             className="block w-full appearance-none rounded-md bg-white py-1.5 pr-8 pl-3 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
-                                            id="visitingTeamYearEra"
-                                            name="visitingTeamYearEra"
-                                            value={formData.visitingTeamName}
-                                            onChange={handleSelectChange}
+                                            id="awayTeamSeason"
+                                            name="awayTeamSeason"
+                                            value={formData.awayTeamSeason}
+                                            onChange={(e) => handleSeasonChange(e.target.value, false)}
                                             required
                                         >
-                                            <option value="">Select Year/Era</option>
-                                            {eras.map((era) => (
-                                                <option key={era} value={era}>{era}</option>
+                                            <option value="">Select Season</option>
+                                            {seasons.map((season) => (
+                                                <option key={season} value={season}>{season}</option>
                                             ))}
                                         </select>
                                     </div>
                                 </div>
                                 <div className="sm:col-span-3">
-                                    <label htmlFor="visitingTeamName"
+                                    <label htmlFor="awayTeamName"
                                            className="block text-sm/6 font-medium text-gray-900">Away Team Name:</label>
                                     <div className="mt-2">
                                         <select
                                             className="block w-full appearance-none rounded-md bg-white py-1.5 pr-8 pl-3 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
-                                            id="visitingTeamName"
-                                            name="visitingTeamName"
-                                            value={formData.visitingTeamYearEra}
-                                            onChange={handleSelectChange}
+                                            id="awayTeamName"
+                                            name="awayTeamName"
+                                            value={formData.awayTeamName}
+                                            onChange={handleTeamChange}
                                         >
                                             <option value="">Select Away Team</option>
                                             {awayTeams.map((awayTeam) => (
-                                                <option key={awayTeam.id} value={awayTea.name}>{awayTeam.name}</option>
+                                                <option key={awayTeam.id} value={awayTeam.name}>{awayTeam.name}</option>
                                             ))}
                                         </select>
                                     </div>
