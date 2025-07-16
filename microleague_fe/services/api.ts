@@ -28,15 +28,16 @@ export async function fetchTeams(sport: string, era: string): Promise<Team[]> {
     }
 }
 
-export async function createMatchUp(matchUpFormData: Promise<MatchUp[]>) {
+export async function createMatchUp(matchUpFormData) {
     try {
-        return await fetch(`${process.env.MICROLEAGUE_BASE_API}/matchups`, {
+        const matchUpDetails =  await fetch(`http://localhost:3001/api/v1/generate`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(matchUpFormData),
         })
+        return matchUpDetails.json();
     } catch (e) {
         console.error("Form submission error:", e);
         return []
