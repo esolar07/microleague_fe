@@ -223,8 +223,6 @@ const MatchUpForm = () => {
         //         "summary": String
         //     }
         // }
-        debugger
-
         console.log(matchUpDetails)
         setGameDetails(matchUpDetails.data);
         setShowModal(true);
@@ -236,17 +234,15 @@ const MatchUpForm = () => {
                 <Form onSubmit={handleMatchUpCreation}>
                     <div className="space-y-12 max-w-[800px] mx-auto">
                         <div className="border-b border-red-900/10 pb-12">
-                            <h2 className="text-base/7 font-semibold text-gray-900 text-center">Create Your Fantasy
-                                Match Up.</h2>
-                            <p className="mt-1 text-sm/6 text-gray-600 text-center">Select a sports team from any
-                                era.</p>
+                            <h1 className="mb-5 text-3xl font-semibold text-gray-900 text-center">Simulate a Cross-era Fantasy Match Up.</h1>
+                            <h2 className="mt-1 text-2xl text-gray-600 text-center">Select a sports team from any
+                                era.</h2>
                             <fieldset className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                                 <div className="sm:col-span-3">
-                                    <label htmlFor="sport"
-                                           className="block text-sm/6 font-medium text-gray-900">Sport:</label>
+                                    <label htmlFor="sport" className="block text-md font-medium text-gray-900">Sport:</label>
                                     <div className="mt-2 grid grid-cols-1">
                                         <select
-                                            className="col-start-1 row-start-1 w-full appearance-none rounded-md bg-white py-1.5 pr-8 pl-3 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+                                            className="col-start-1 row-start-1 w-full appearance-none rounded-md bg-white py-1.5 pr-8 pl-3 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-rose-600 sm:text-sm/6"
                                             id="sport"
                                             name="sport"
                                             value={formData.sport}
@@ -264,10 +260,10 @@ const MatchUpForm = () => {
 
                             <fieldset className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                             <div className="sm:col-span-3">
-                                    <label htmlFor="homeTeamSeason" className="block text-sm/6 font-medium text-gray-900">Home Team Season:</label>
+                                    <label htmlFor="homeTeamSeason" className="block text-lg font-medium text-gray-900">Home Team Season:</label>
                                     <div className="mt-2">
                                         <select
-                                            className="block w-full appearance-none rounded-md bg-white py-1.5 pr-8 pl-3 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+                                            className="block w-full appearance-none rounded-md bg-white py-1.5 pr-8 pl-3 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-rose-600 sm:text-sm/6"
                                             id="homeTeamSeason"
                                             name="homeTeamSeason"
                                             value={formData.homeTeamSeason}
@@ -283,10 +279,10 @@ const MatchUpForm = () => {
                                 </div>
                                 <div className="sm:col-span-3">
                                     <label htmlFor="homeTeamName"
-                                           className="block text-sm/6 font-medium text-gray-900">Home Team Name:</label>
+                                           className="block text-md font-medium text-gray-900">Home Team Name:</label>
                                     <div className="mt-2">
                                         <select
-                                            className="block w-full appearance-none rounded-md bg-white py-1.5 pr-8 pl-3 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+                                            className="block w-full appearance-none rounded-md bg-white py-1.5 pr-8 pl-3 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-rose-600 sm:text-sm/6"
                                             id="homeTeamName"
                                             name="homeTeamName"
                                             value={formData.homeTeamName}
@@ -304,10 +300,10 @@ const MatchUpForm = () => {
                             <fieldset className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                                 <div className="sm:col-span-3">
                                     <label htmlFor="awayTeamSeason"
-                                           className="block text-sm/6 font-medium text-gray-900">Away Team Season:</label>
+                                           className="block text-md font-medium text-gray-900">Away Team Season:</label>
                                     <div className="mt-2 grid grid-cols-1">
                                         <select
-                                            className="block w-full appearance-none rounded-md bg-white py-1.5 pr-8 pl-3 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+                                            className="block w-full appearance-none rounded-md bg-white py-1.5 pr-8 pl-3 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-rose-600 sm:text-sm/6"
                                             id="awayTeamSeason"
                                             name="awayTeamSeason"
                                             value={formData.awayTeamSeason}
@@ -323,10 +319,10 @@ const MatchUpForm = () => {
                                 </div>
                                 <div className="sm:col-span-3">
                                     <label htmlFor="awayTeamName"
-                                           className="block text-sm/6 font-medium text-gray-900">Away Team Name:</label>
+                                           className="block text-md font-medium text-gray-900">Away Team Name:</label>
                                     <div className="mt-2">
                                         <select
-                                            className="block w-full appearance-none rounded-md bg-white py-1.5 pr-8 pl-3 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+                                            className="block w-full appearance-none rounded-md bg-white py-1.5 pr-8 pl-3 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-rose-600 sm:text-sm/6"
                                             id="awayTeamName"
                                             name="awayTeamName"
                                             value={formData.awayTeamName}
@@ -343,7 +339,7 @@ const MatchUpForm = () => {
                             <fieldset className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                                 <button
                                     type="submit"
-                                    className="rounded-lg bg-rose-400 w-100 md:w-64 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-rose-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                                    className="rounded-lg bg-rose-400 w-100 md:w-64 px-3 py-2 text-md font-semibold text-white shadow-xs hover:bg-rose-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-rose-600"
                                     disabled={isSubmitting}
                                 > {isSubmitting ? "Creating..." : "Create Match Up"}
                                 </button>
@@ -355,82 +351,6 @@ const MatchUpForm = () => {
             {showModal && (
                 <MatchUpDetailsModal gameDetails={gameDetails} onClose={() => setShowModal(false)} />
             )}
-            {/*<section>*/}
-            {/*    <div className="relative z-10" aria-labelledby="dialog-title" role="dialog" aria-modal="true">*/}
-            {/*        <div className="max-w-6xl mx-auto px-4 py-10 space-y-10 text-gray-800">*/}
-            {/*            <div className="text-center space-y-2">*/}
-            {/*                <h3 className="text-3xl font-bold">{gameDetails.game_info.title}</h3>*/}
-            {/*                <p className="text-sm italic text-gray-600">{gameDetails.game_info.location}</p>*/}
-            {/*                <p className="text-sm text-gray-500">{gameDetails.game_info.rules_adjustment}</p>*/}
-            {/*            </div>*/}
-            {/*        </div>*/}
-            {/*        <div className="text-center">*/}
-            {/*            <h2 className="text-2xl font-bold text-rose-700">Final Score</h2>*/}
-            {/*            <p className="text-lg font-semibold">{`Cowboys ${gameDetails.final_score.Cowboys} - ${gameDetails.final_score.Chiefs} Chiefs`}</p>*/}
-            {/*        </div>*/}
-            {/*        <div className="mt-10 bg-yellow-50 border-l-4 border-yellow-400 p-6 rounded">*/}
-            {/*            <h2 className="text-xl font-bold text-yellow-700 mb-1">🏆 MVP: {gameDetails.MVP.name}</h2>*/}
-            {/*            <p className="text-sm text-gray-700"><strong>Stats:</strong> {gameDetails.MVP.stats}</p>*/}
-            {/*            <p className="text-sm italic text-gray-600 mt-1">{gameDetails.MVP.summary}</p>*/}
-            {/*        </div>*/}
-            {/*        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-10">*/}
-            {/*            {Object.entries(gameDetails.teams).map(([teamName, team]) => (*/}
-            {/*                <div key={teamName} className="bg-white shadow rounded p-6">*/}
-            {/*                    <h2 className="text-xl font-semibold text-rose-600">{teamName}</h2>*/}
-            {/*                    <p><strong>Coach:</strong> {team.coach}</p>*/}
-            {/*                    <p><strong>Record:</strong> {team[`record_2024`]}</p>*/}
-            {/*                    <p><strong>Era Style:</strong> {team.era_style}</p>*/}
-            {/*                    <div className="mt-2">*/}
-            {/*                        <p className="font-semibold">Notable Players:</p>*/}
-            {/*                        <ul className="list-disc list-inside text-sm text-gray-700">*/}
-            {/*                            {team.notable_players.map((player: string) => (*/}
-            {/*                                <li key={player}>{player}</li>*/}
-            {/*                            ))}*/}
-            {/*                        </ul>*/}
-            {/*                    </div>*/}
-            {/*                </div>*/}
-            {/*            ))}*/}
-            {/*        </div>*/}
-            {/*        <details className="space-y-6 mt-10">*/}
-            {/*            <summary className="text-2xl font-bold border-b pb-1">Quarter Summaries</summary>*/}
-            {/*            {gameDetails.quarter_summaries.map((q) => (*/}
-            {/*                <div key={q.quarter} className="bg-gray-50 border p-4 rounded">*/}
-            {/*                    <h3 className="font-bold text-lg mb-2">Q{q.quarter}: <span*/}
-            {/*                        className="text-rose-500">{q.score}</span></h3>*/}
-            {/*                    <ul className="list-disc list-inside text-sm text-gray-700 space-y-1">*/}
-            {/*                        {q.highlights.map((hl: string, idx: number) => (*/}
-            {/*                            <li key={idx}>{hl}</li>*/}
-            {/*                        ))}*/}
-            {/*                    </ul>*/}
-            {/*                </div>*/}
-            {/*            ))}*/}
-            {/*        </details>*/}
-            {/*        <details className="space-y-4 mt-10">*/}
-            {/*            <summary className="text-2xl font-bold border-b pb-1">Game Statistics</summary>*/}
-            {/*            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">*/}
-            {/*                {Object.entries(gameDetails.game_statistics).map(([team, stats]) => (*/}
-            {/*                    <div key={team} className="bg-white p-4 rounded shadow">*/}
-            {/*                        <h3 className="text-xl font-semibold text-indigo-600">{team}</h3>*/}
-            {/*                        <ul className="text-sm text-gray-800 mt-2 space-y-1">*/}
-            {/*                            {Object.entries(stats).map(([stat, val]) => (*/}
-            {/*                                <li key={stat}><strong*/}
-            {/*                                    className="capitalize">{stat.replace(/_/g, ' ')}:</strong> {val}</li>*/}
-            {/*                            ))}*/}
-            {/*                        </ul>*/}
-            {/*                    </div>*/}
-            {/*                ))}*/}
-            {/*            </div>*/}
-            {/*        </details>*/}
-            {/*        <details className="space-y-4 mt-10">*/}
-            {/*            <summary className="text-2xl font-bold border-b pb-1">Era Impact Notes</summary>*/}
-            {/*            <ul className="list-disc list-inside text-sm text-gray-700 mt-2">*/}
-            {/*                {gameDetails.era_impact_notes.map((note: string, idx: number) => (*/}
-            {/*                    <li key={idx}>{note}</li>*/}
-            {/*                ))}*/}
-            {/*            </ul>*/}
-            {/*        </details>*/}
-            {/*    </div>*/}
-            {/*</section>*/}
         </Container>
 
     );
