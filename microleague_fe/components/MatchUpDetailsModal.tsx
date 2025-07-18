@@ -7,10 +7,12 @@ interface Props {
 }
 
 const MatchUpDetailsModal = ({ gameDetails, onClose }: Props) => {
+    const periodKey: string = gameDetails.quarter_summaries ? 'quarter' : 'inning';
+    const periodSummaries = gameDetails.quarter_summaries || gameDetails.inning_summaries;
     return (
         <section className="fixed inset-0 z-50 bg-black/85 flex items-center justify-center px-4">
             <div className="bg-gray-50 w-full max-w-4xl p-10 rounded-lg shadow-lg p-6 overflow-y-auto max-h-[90vh] relative">
-                <button onClick={onClose} className="absolute top-5 right-5 text-gray-500 hover:text-black">
+                <button onClick={onClose} className="absolute top-5 right-5 text-gray-500 hover:text-black cursor-pointer">
                     <X size={34}/>
                 </button>
                 <div className="relative z-10" aria-labelledby="dialog-title" role="dialog" aria-modal="true">
@@ -20,10 +22,10 @@ const MatchUpDetailsModal = ({ gameDetails, onClose }: Props) => {
                             <p className="text-sm text-center italic text-gray-600">{gameDetails.game_info.location}</p>
                             <h2 className="text-2xl text-center font-bold">{gameDetails.game_info.subtitle}</h2>
                         </div>
-                    </div>
-                    <div className="text-center">
-                        <h2 className="mb-5 text-3xl font-bold text-rose-700">Final Score</h2>
-                        <p className="text-xl font-semibold">{gameDetails.final_score}</p>
+                        <div className="text-center">
+                            <h2 className="mb-5 text-3xl font-bold text-rose-700">Final Score</h2>
+                            <p className="text-xl font-semibold">{gameDetails.final_score}</p>
+                        </div>
                     </div>
                     <div className="mt-10 bg-yellow-50 border-l-4 border-yellow-400 p-6 rounded">
                         <h2 className="text-xl font-bold text-yellow-700 mb-1">🏆 MVP: {gameDetails.MVP.name}</h2>
@@ -47,13 +49,16 @@ const MatchUpDetailsModal = ({ gameDetails, onClose }: Props) => {
                         </div>
                     </details>
                     <details className="space-y-6 mt-10">
-                        <summary className="text-2xl pb-1">Quarter Summaries</summary>
-                        {gameDetails.quarter_summaries.map((quarter_summary) => (
-                            <div key={quarter_summary.quarter} className="bg-gray-50 border p-4 rounded">
-                                <h3 className="font-bold text-lg mb-2">Q{quarter_summary.quarter}: <span
-                                    className="">{quarter_summary.score}</span></h3>
+                        <summary className="text-2xl pb-1">Game Summary</summary>
+                        {periodSummaries.map((periodSummary, periodSummaryIndex) => (
+                            <div key={periodSummaryIndex} className="bg-gray-50 border p-4 rounded">
+                                <h2 className="font-bold text-lg mb-2">
+                                    {periodKey === 'quarter' ? `Quarter ${periodSummary.quarter}` : `Inning ${periodSummary.inning}`} :
+                                    <span> {periodSummary.score}</span>
+                                </h2>
+                                <h3 className="font-bold text-md mb-2">Highlights:</h3>
                                 <ul className="list-disc list-inside text-sm text-gray-700 space-y-1">
-                                    {quarter_summary.highlights.map((hl: string, idx: number) => (
+                                    {periodSummary.highlights.map((hl: string, idx: number) => (
                                         <li key={idx}>{hl}</li>
                                     ))}
                                 </ul>
