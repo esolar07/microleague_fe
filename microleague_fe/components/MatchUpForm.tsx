@@ -64,7 +64,7 @@ const MatchUpForm = () => {
     return (
         <Container>
             <section className="">
-                <Form onSubmit={handleMatchUpCreation}>
+                <form onSubmit={handleMatchUpCreation}>
                     <div className="space-y-12 max-w-[800px] mx-auto">
                         <div className="border-b border-red-900/10 pb-12">
                             <h1 className="mb-5 text-3xl font-semibold text-gray-900 text-center">Simulate a Cross-era Fantasy Match Up.</h1>
@@ -175,7 +175,7 @@ const MatchUpForm = () => {
                             </fieldset>
                         </div>
                     </div>
-                </Form>
+                </form>
             </section>
             {showModal && (
                 <MatchUpDetailsModal gameDetails={gameDetails} onClose={() => setShowModal(false)} />

@@ -28,7 +28,7 @@ export async function fetchTeams(sport: string, era: string): Promise<Team[]> {
     }
 }
 
-export async function createMatchUp(matchUpFormData) {
+export async function createMatchUp(matchUpFormData: any) {
     try {
         const matchUpDetails =  await fetch(`http://localhost:3001/api/v1/generate`, {
             method: 'POST',
@@ -41,4 +41,19 @@ export async function createMatchUp(matchUpFormData) {
     } catch (e) {
         console.error("Form submission error:", e);
         return []
-    }}
+    }
+}
+
+export async function createMatchUpArticle(matchUpResultId: number) {
+    try {
+        const createMatchUpArticle = await fetch(`http://localhost:3001/api/v1/generate/articles/${matchUpResultId}`);
+        if (!createMatchUpArticle.ok) {
+            throw new Error('Failed to create match up article.');
+            return null
+        }
+        return await createMatchUpArticle.json();
+    } catch (e) {
+        console.error("Error creating match up article:", e);
+        return null;
+    }
+}

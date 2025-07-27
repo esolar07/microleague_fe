@@ -1,8 +1,9 @@
 "use client";
 import React from "react";
 import { X } from "lucide-react"
+import router from "next/router";
 interface Props {
-    gameDetails: GameDetails;
+    gameDetails: any;
     onClose: () => void;
 }
 
@@ -12,6 +13,12 @@ const MatchUpDetailsModal = ({ gameDetails, onClose }: Props) => {
     return (
         <section className="fixed inset-0 z-50 bg-black/85 flex items-center justify-center px-4">
             <div className="bg-gray-50 w-full max-w-4xl p-10 rounded-lg shadow-lg p-6 overflow-y-auto max-h-[90vh] relative">
+                <button
+                    className="absolute top-5 left-5 bg-rose-500 text-white px-4 py-2 rounded hover:bg-rose-600"
+                    onClick={() => router.push('/matchup-details')}
+                >
+                    Share Results
+                </button>
                 <button onClick={onClose} className="absolute top-5 right-5 text-gray-500 hover:text-black cursor-pointer">
                     <X size={34}/>
                 </button>

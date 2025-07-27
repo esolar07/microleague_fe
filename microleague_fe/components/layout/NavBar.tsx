@@ -8,10 +8,12 @@ const NavBar = () => {
                 <div className="flex justify-between items-center gap-8">
                     <div className={"flex items-center gap-1 cursor-pointer"}>
                         <Image
-                            src="/microleague-sports-logo.svg"
+                            src="/microleague-sports-logo.png"
                             alt="Microleague Sport Logo"
-                            width={400}
-                            height={300}
+                            width={200}
+                            height={100}
+                            style={{objectFit: "contain"}}
+                            priority
                         ></Image>
                     </div>
                     <div className="flex gap-5 sm:gap-8 items-center text-white">
