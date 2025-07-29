@@ -16,7 +16,8 @@ const MatchUpForm = () => {
         awayTeamSeason: '',
         awayTeamName: '',
     });
-    const [gameDetails, setGameDetails] = useState({})
+    const [matchupId, setMatchupId] = useState<string | null>(null);
+    const [gameDetails, setGameDetails] = useState({});
     const [seasons, setSeasons] = useState<string[]>([]);
     const [homeTeams, setHomeTeams] = useState<Team[]>([]);
     const [awayTeams, setAwayTeams] = useState<Team[]>([]);
@@ -56,6 +57,7 @@ const MatchUpForm = () => {
         setSubmitMessage(null);
         const matchUpDetails = await createMatchUp(formData)
         console.log(matchUpDetails)
+        setMatchupId(matchUpDetails.id);
         setGameDetails(matchUpDetails.data);
         setShowModal(true);
         setIsSubmitting(false);
@@ -178,7 +180,7 @@ const MatchUpForm = () => {
                 </form>
             </section>
             {showModal && (
-                <MatchUpDetailsModal gameDetails={gameDetails} onClose={() => setShowModal(false)} />
+                <MatchUpDetailsModal matchupId={matchupId} gameDetails={gameDetails} onClose={() => setShowModal(false)} />
             )}
         </Container>
 

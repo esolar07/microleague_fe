@@ -1,13 +1,16 @@
 "use client";
 import React from "react";
 import { X } from "lucide-react"
-import router from "next/router";
+import { useRouter } from 'next/navigation';
+
 interface Props {
+    matchupId: string | null;
     gameDetails: any;
     onClose: () => void;
 }
 
-const MatchUpDetailsModal = ({ gameDetails, onClose }: Props) => {
+const MatchUpDetailsModal = ({ matchupId, gameDetails, onClose }: Props) => {
+    const router = useRouter();
     const periodKey: string = gameDetails.quarter_summaries ? 'quarter' : 'inning';
     const periodSummaries = gameDetails.quarter_summaries || gameDetails.inning_summaries;
     return (
@@ -15,7 +18,7 @@ const MatchUpDetailsModal = ({ gameDetails, onClose }: Props) => {
             <div className="bg-gray-50 w-full max-w-4xl p-10 rounded-lg shadow-lg p-6 overflow-y-auto max-h-[90vh] relative">
                 <button
                     className="absolute top-5 left-5 bg-rose-500 text-white px-4 py-2 rounded hover:bg-rose-600"
-                    onClick={() => router.push('/matchup-details')}
+                    onClick={() => router.push(`/matchups/${matchupId}`)}
                 >
                     Share Results
                 </button>

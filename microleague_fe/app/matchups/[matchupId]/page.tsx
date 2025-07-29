@@ -1,5 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
+import Container from "@/components/layout/Container";
 import { useParams } from 'next/navigation';
 import { createMatchUpArticle } from "@/services/api";
 
@@ -38,12 +39,23 @@ export default function MatchupArticle() {
   }, []); 
 
   return (
+    <Container>
       <main className="grid min-h-screen p-8 pb-20 gap-16 sm:p-20">
-        {!loading  ? (
+          {!loading  ? (
+            <div>
               <h1 className="text-3xl font-bold mb-4">{matchupArticle.game_info?.headline}</h1>
-        ): (
-            <p className="text-red-500">Error loading matchup article.</p>
-        )}
+              <h3 className="text-xl font-semibold mb-2">{matchupArticle.game_summary?.final_score}</h3>
+              <p>{matchupArticle.opening_paragraph?.content}</p>
+              <p>{matchupArticle.game_summary?.final_score}</p>
+
+
+              
+            </div>
+            
+          ): (
+              <p className="text-red-500">Error loading matchup article.</p>
+          )}
        </main>
+       </Container>
   );
 }
