@@ -1,6 +1,15 @@
 import React from 'react';
 import Image from "next/image";
 import Container from "@/components/layout/Container";
+import { 
+    ConnectWallet, 
+    Wallet, 
+    WalletDropdownFundLink,
+    WalletDropdown,
+    WalletDropdownDisconnect
+} from '@coinbase/onchainkit/wallet';
+import { Avatar, Identity, Name, EthBalance, Address } from '@coinbase/onchainkit/identity';
+
 const NavBar = () => {
     return (
         <nav className="sticky top-0 border-b z-50 bg-gray-700">
@@ -17,9 +26,18 @@ const NavBar = () => {
                         ></Image>
                     </div>
                     <div className="flex gap-5 sm:gap-8 items-center text-white">
-                        <div>About Us</div>
-                        <div>Coming Soon</div>
-                        <div>Contact Us</div>
+                        <Wallet>
+                            <WalletDropdown>
+                            <Identity className="px-4 pt-3 pb-2" hasCopyAddressOnClick>
+                                <Avatar />
+                                <Name />
+                                <Address />
+                                <EthBalance />
+                            </Identity>
+                            <WalletDropdownDisconnect />
+                            </WalletDropdown>
+                            <ConnectWallet />
+                        </Wallet>
                     </div>
                 </div>
             </Container>

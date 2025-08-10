@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import NavBar from "@/components/layout/NavBar";
-import OnchainProvider from "@/providers/OnchainProvider";
+import OnchainProvider from '../providers/OnchainProvider';
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -26,11 +26,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <OnchainProvider>
-          <NavBar />
+          <NavBar></NavBar>
           {children}
         </OnchainProvider>
       </body>
