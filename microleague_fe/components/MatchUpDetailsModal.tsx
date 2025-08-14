@@ -7,8 +7,12 @@ import {
   FacebookShareButton,
   TwitterShareButton
 } from "react-share";
+import { PeriodSummary, TeamInfo } from "@/types/matchupArticle";
+
+type TeamStats = Record<string, string | number>;
+
 interface Props {
-    matchupId: string | null;
+    matchupId: string;
     gameDetails: any;
     onClose: () => void;
 }
@@ -22,7 +26,7 @@ const MatchUpDetailsModal = ({ matchupId, gameDetails, onClose }: Props) => {
             <div className="bg-gray-50 w-full max-w-4xl p-10 rounded-lg shadow-lg p-6 overflow-y-auto max-h-[90vh] relative">
                 <button
                     className="absolute top-5 left-5 bg-slate-500 text-white px-4 py-2 rounded hover:bg-slate-600 cursor-pointer"
-                    onClick={() => window.open(`/matchups/${matchupId}`)}
+                    onClick={() => window.open(`/matchups/${matchupId}`, "_blank")}
                 >
                     Share Game Simulation
                 </button>
@@ -53,7 +57,7 @@ const MatchUpDetailsModal = ({ matchupId, gameDetails, onClose }: Props) => {
                                 <div key={team} className="bg-white p-4 rounded shadow bg-gray-50 border p-4 ">
                                     <h3 className="text-xl font-semibold">{team}</h3>
                                     <ul className="text-sm text-gray-800 mt-2 space-y-1">
-                                        {Object.entries(stats).map(([stat, val]) => (
+                                        {Object.entries(stats as TeamStats).map(([stat, val]) => (
                                             <li key={stat}><strong
                                                 className="capitalize">{stat.replace(/_/g, ' ')}:</strong> {val}</li>
                                         ))}
@@ -64,7 +68,7 @@ const MatchUpDetailsModal = ({ matchupId, gameDetails, onClose }: Props) => {
                     </details>
                     <details className="space-y-6 mt-10">
                         <summary className="text-2xl pb-1">Game Summary</summary>
-                        {periodSummaries.map((periodSummary, periodSummaryIndex) => (
+                        {periodSummaries.map((periodSummary: PeriodSummary, periodSummaryIndex: number) => (
                             <div key={periodSummaryIndex} className="bg-gray-50 border p-4 rounded">
                                 <h2 className="font-bold text-lg mb-2">
                                     {periodKey === 'quarter' ? `Quarter ${periodSummary.quarter}` : `Inning ${periodSummary.inning}`} :
@@ -82,11 +86,11 @@ const MatchUpDetailsModal = ({ matchupId, gameDetails, onClose }: Props) => {
                     <details className="space-y-4 mt-10">
                         <summary className="text-2xl pb-1">Era Impact Notes</summary>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-10">
-                            {Object.entries(gameDetails.teams).map(([teamName, team]) => (
+                            {(Object.entries(gameDetails.teams) as [string, TeamInfo][]).map(([teamName, team]: [string, TeamInfo]) => (
                                 <div key={teamName} className="bg-white p-4 rounded shadow bg-gray-50 border p-4 ">
                                     <h2 className="text-center text-xl font-semibold text-grey-600 mb-5">{teamName}</h2>
                                     <p><strong>Coach:</strong> {team.coach}</p>
-                                    <p><strong>Record:</strong> {team[`record_2024`]}</p>
+                                    {/* <p><strong>Record:</strong> {team[`record_2024`]}</p> */}
                                     <p><strong>Era Style:</strong> {team.era_style}</p>
                                     <div className="mt-2">
                                         <p className="font-semibold">Notable Players:</p>
