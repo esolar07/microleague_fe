@@ -5,13 +5,13 @@ import { Address, Avatar, Name, Identity, EthBalance} from '@coinbase/onchainkit
 import  BuyToken from "@/components/token/BuyToken";
 import { color } from '@coinbase/onchainkit/theme';
 import '@coinbase/onchainkit/styles.css';
-import PresaleBuy from '@/components/token/PresaleBuy';
+import PresaleBuyUsd from '@/components/token/PresaleBuyUsd';
 
 export default function Presale() {
   return (
     <Container>
         <main className="grid min-h-screen p-8 pb-20 gap-16 sm:p-20">
-            <PresaleBuy />
+            <PresaleBuyUsd />
         </main>
     </Container>
   );

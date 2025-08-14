@@ -1,17 +1,22 @@
 import { Buy } from '@coinbase/onchainkit/buy'; 
 import type { Token } from '@coinbase/onchainkit/token';
 
-export default function BuyTo() { 
+export default function BuyToken() { 
+    const handlePurchaseSuccess = (data: any) => {
+        console.log('Purchase successful!', data);
+        // Implement logic to display success message or fulfill order
+    };
   const microleagueToken: Token = {
     name: 'Microleague Coin',
-    address: '0x4ed4e862860bed51a9570b96d89af5e1b0efefed',
+    address: '0x20fe1B30dBa3E8789cC3ceB7eFD3789C774660c6',
     symbol: 'MLC',
     decimals: 18,
     image:'',
-    chainId: 8453,
+    // chainId: 8453,
+    chainId: 84532, // baseSepolia
   };
 
   return ( 
-    <Buy toToken={microleagueToken} />
+    <Buy toToken={microleagueToken} onStatus={handlePurchaseSuccess}/>
   ) 
 }

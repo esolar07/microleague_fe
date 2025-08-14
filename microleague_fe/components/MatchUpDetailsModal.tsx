@@ -2,7 +2,11 @@
 import React from "react";
 import { X } from "lucide-react"
 import { useRouter } from 'next/navigation';
-
+import {
+  EmailShareButton,
+  FacebookShareButton,
+  TwitterShareButton
+} from "react-share";
 interface Props {
     matchupId: string | null;
     gameDetails: any;
@@ -14,19 +18,19 @@ const MatchUpDetailsModal = ({ matchupId, gameDetails, onClose }: Props) => {
     const periodKey: string = gameDetails.quarter_summaries ? 'quarter' : 'inning';
     const periodSummaries = gameDetails.quarter_summaries || gameDetails.inning_summaries;
     return (
-        <section className="fixed inset-0 z-50 bg-black/85 flex items-center justify-center px-4">
+        <section className="fixed inset-0 z-50 bg-black/85 flex items-center justify-center px-6">
             <div className="bg-gray-50 w-full max-w-4xl p-10 rounded-lg shadow-lg p-6 overflow-y-auto max-h-[90vh] relative">
                 <button
-                    className="absolute top-5 left-5 bg-rose-500 text-white px-4 py-2 rounded hover:bg-rose-600"
-                    onClick={() => router.push(`/matchups/${matchupId}`)}
+                    className="absolute top-5 left-5 bg-slate-500 text-white px-4 py-2 rounded hover:bg-slate-600 cursor-pointer"
+                    onClick={() => window.open(`/matchups/${matchupId}`)}
                 >
-                    Share Results
+                    Share Game Simulation
                 </button>
                 <button onClick={onClose} className="absolute top-5 right-5 text-gray-500 hover:text-black cursor-pointer">
                     <X size={34}/>
                 </button>
                 <div className="relative z-10" aria-labelledby="dialog-title" role="dialog" aria-modal="true">
-                    <div className="max-w-6xl mx-auto mb-5 px-4 py-10 space-y-10 text-gray-800">
+                    <div className="max-w-6xl mx-auto mb-5 px-2 py-10 space-y-10 text-gray-800">
                         <div className="space-y-2">
                             <h1 className="text-3xl text-center font-bold">{gameDetails.game_info.title}</h1>
                             <p className="text-sm text-center italic text-gray-600">{gameDetails.game_info.location}</p>
