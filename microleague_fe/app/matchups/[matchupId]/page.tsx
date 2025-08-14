@@ -12,12 +12,7 @@ import {
   TwitterIcon,
 } from "react-share";
   import Head from 'next/head';
-
-interface MatchupArticleProps {
-  params: {
-    matchupId: string;
-  };
-}
+  import { MatchupArticle as MatchupArticleType } from "@/types/matchup";
 
 export default function MatchupArticle() {
   const params = useParams();
@@ -25,17 +20,16 @@ export default function MatchupArticle() {
     throw new Error("Matchup ID is required");
   }
   const {matchupId} = params;
-  const [matchupArticle, setMatchupArticle] = useState({});
+  const [matchupArticle, setMatchupArticle] = useState<MatchupArticleType>({});
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
- const [currentUrl, setCurrentUrl] = useState('');
+  const [currentUrl, setCurrentUrl] = useState('');
 
   useEffect(() => {
      if (typeof window !== 'undefined') {
       setCurrentUrl(window.location.href);
     }
     async function getMatchup() {
-
       try {
         const matchupArticleDetails = await createMatchUpArticle(Number(matchupId));
         if (!matchupArticleDetails) {
@@ -59,9 +53,18 @@ export default function MatchupArticle() {
               <Head>
                 <meta property="og:type" content="article" />
                 <title>{matchupArticle.game_info?.headline}</title>
-                <meta name="description" content={matchupArticle.opening_paragraph?.content} />
-                <meta property="og:title" content={matchupArticle.game_info?.headline} />
-                <meta property="og:description" content={matchupArticle.opening_paragraph?.content} />
+                <meta
+                  name="description"
+                  content={matchupArticle.opening_paragraph?.content || ""}
+                />
+                <meta
+                  property="og:title"
+                  content={matchupArticle.game_info?.headline || ""}
+                />
+                <meta
+                  property="og:description"
+                  content={matchupArticle.opening_paragraph?.content || ""}
+                />
               </Head>
               <div className="flex flex-row justify-end mb-4">
                 <EmailShareButton className="mx-2" url={currentUrl} subject={matchupArticle.game_info?.headline}> 
