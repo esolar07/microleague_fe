@@ -12,7 +12,7 @@ import { PeriodSummary, TeamInfo } from "@/types/matchupArticle";
 type TeamStats = Record<string, string | number>;
 
 interface Props {
-    matchupId: string;
+    matchupId: string | null;
     gameDetails: any;
     onClose: () => void;
 }
