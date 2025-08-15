@@ -7,22 +7,23 @@ import { base, baseSepolia } from 'wagmi/chains';
 import { presaleUsdAbi } from '@/lib/abis/presaleUsd';
 import { erc20Abi } from '@/lib/abis/erc20';
 import { Transaction, TransactionButton } from '@coinbase/onchainkit/transaction';
+import type { PermitDomain, PermitMessage } from '@/types/presale';
 
 const chainName = process.env.NEXT_PUBLIC_CHAIN ?? 'base-sepolia';
-const chainId = chainName === 'base' ? base.id : baseSepolia.id;
+const  chainId = 84532;
 
 const PRESALE = process.env.NEXT_PUBLIC_PRESALE_ADDRESS as `0x${string}`;
-const STABLE  = process.env.NEXT_PUBLIC_STABLE_ADDRESS as `0x${string}`;
+const STABLE = process.env.NEXT_PUBLIC_STABLE_ADDRESS as `0x${string}`;
 
-const TOKEN_DECIMALS  = Number(process.env.NEXT_PUBLIC_TOKEN_DECIMALS || 18);
+const TOKEN_DECIMALS = Number(process.env.NEXT_PUBLIC_TOKEN_DECIMALS || 18);
 const STABLE_DECIMALS = Number(process.env.NEXT_PUBLIC_STABLE_DECIMALS || 6);
-const tokenScale = 10n ** BigInt(TOKEN_DECIMALS);
+const tokenScale = BigInt(10) ** BigInt(TOKEN_DECIMALS);
 
 export default function PresaleBuyUsd() {
-  const { address, chain } = useAccount();
-  const [tokensStr, setTokensStr] = useState('100'); // desired tokens
+  const { address } = useAccount();
+  const [tokensStr, setTokensStr] = useState('100');
 
-  // Reads (same as your code)
+  // Reads
   const { data: price } = useReadContract({
     address: PRESALE, abi: presaleUsdAbi, functionName: 'pricePerToken', chainId,
   });
@@ -42,7 +43,7 @@ export default function PresaleBuyUsd() {
     address: PRESALE, abi: presaleUsdAbi, functionName: 'finalized', chainId,
   });
 
-  // Stable token metadata for Permit domain
+  // Stable token metadata
   const { data: tokenName } = useReadContract({
     address: STABLE,
     abi: [{ type:'function', name:'name', stateMutability:'view', inputs:[], outputs:[{ type:'string' }]}] as const,
@@ -60,49 +61,48 @@ export default function PresaleBuyUsd() {
     query: { enabled: !!address },
   });
 
-  // Allowance (for fallback approve flow)
+  // Allowance (fallback)
   const { data: allowance } = useReadContract({
     address: STABLE, abi: erc20Abi, functionName: 'allowance',
-    args: [address ?? '0x0000000000000000000000000000000000000000', PRESALE], chainId,
+    args: [address ?? '0x0000000000000000000000000000000000000000', PRESALE],
+    chainId,
     query: { enabled: !!address },
   });
 
   const tokenAmount = useMemo(() => {
-    try { return parseUnits(tokensStr || '0', TOKEN_DECIMALS); } catch { return 0n; }
+    try { return parseUnits(tokensStr || '0', TOKEN_DECIMALS); } catch { return BigInt(0); }
   }, [tokensStr]);
 
   const costStable = useMemo(() => {
-    const p = (price as bigint) || 0n;
-    if (p === 0n) return 0n;
+    const p = (price as bigint) || BigInt(0);
+    if (p === BigInt(0)) return BigInt(0);
     return (tokenAmount * p) / tokenScale;
   }, [tokenAmount, price]);
 
   const liveNow = useMemo(() => {
-    const now = Math.floor(Date.now()/1000);
-    return Number(start ?? 0n) <= now && now <= Number(end ?? 0n);
+    const now = Math.floor(Date.now() / 1000);
+    return Number(start ?? BigInt(0)) <= now && now <= Number(end ?? BigInt(0));
   }, [start, end]);
 
-  const needsApproval = (allowance as bigint ?? 0n) < costStable;
+  const needsApproval = (allowance as bigint ?? BigInt(0)) < costStable;
 
-  // Permit signing + buy
+  // Wagmi hooks
   const { data: walletClient } = useWalletClient();
   const { writeContractAsync } = useWriteContract();
 
   async function buyWithPermit() {
-    if (!address || !walletClient || !chain?.id) return;
+    if (!address || !walletClient) return;
     if (!price) return;
-    if (tokenAmount === 0n || costStable === 0n) return;
+    if (tokenAmount === BigInt(0) || costStable === BigInt(0)) return;
 
-    const deadline = BigInt(Math.floor(Date.now() / 1000) + 10 * 60); // 10 min
+    const deadline = BigInt(Math.floor(Date.now() / 1000) + 10 * 60);
 
-    // Build EIP-712 domain
-    const domainBase = {
+    const domainBase: PermitDomain = {
       name: (tokenName as string) ?? 'USDC',
-      chainId: chain.id,
+      chainId, // ✅ always the safe one
       verifyingContract: STABLE,
-    } as const;
+    };
 
-    // USDC variants often use version "2". Try "2", fallback to "1".
     const types = {
       Permit: [
         { name: 'owner',   type: 'address' },
@@ -113,17 +113,15 @@ export default function PresaleBuyUsd() {
       ],
     } as const;
 
-    const message = {
+    const message: PermitMessage = {
       owner: address,
       spender: PRESALE,
       value: costStable,
-      nonce: (nonce as bigint) ?? 0n,
+      nonce: (nonce as bigint) ?? BigInt(0),
       deadline,
-    } as const;
+    };
 
     let signature: `0x${string}` | undefined;
-
-    // Try version "2" then "1"
     try {
       signature = await walletClient.signTypedData({
         account: address,
@@ -132,7 +130,7 @@ export default function PresaleBuyUsd() {
         primaryType: 'Permit',
         message,
       });
-    } catch (e) {
+    } catch {
       signature = await walletClient.signTypedData({
         account: address,
         domain: { ...domainBase, version: '1' },
@@ -142,12 +140,10 @@ export default function PresaleBuyUsd() {
       });
     }
 
-    // Split signature
     const r = `0x${signature.slice(2, 66)}` as `0x${string}`;
     const s = `0x${signature.slice(66, 130)}` as `0x${string}`;
     const v = Number(`0x${signature.slice(130, 132)}`);
-    console.log(chainId)
-    // Single-tx buy with permit
+
     await writeContractAsync({
       address: PRESALE,
       abi: presaleUsdAbi,
@@ -170,20 +166,19 @@ export default function PresaleBuyUsd() {
           style={{padding:8, border:'1px solid #ccc', borderRadius:8}}
         />
         <div style={{fontSize:12, color:'#666'}}>
-          Price: {formatUnits((price as bigint) ?? 0n, STABLE_DECIMALS)} USDC per token
+          Price: {formatUnits((price as bigint) ?? BigInt(0), STABLE_DECIMALS)} USDC per token
         </div>
         <div style={{fontSize:12, color:'#666'}}>
           Cost: {formatUnits(costStable, STABLE_DECIMALS)} USDC
         </div>
         <div style={{fontSize:12, color:'#666'}}>
-          Sold: {(sold as bigint ?? 0n).toString()} / {(cap as bigint ?? 0n).toString()}
+          Sold: {(sold as bigint ?? BigInt(0)).toString()} / {(cap as bigint ?? BigInt(0)).toString()}
         </div>
         <div style={{fontSize:12, color: liveNow ? '#0a0' : '#a00'}}>
           Status: {finalized ? 'Finalized' : liveNow ? 'Live' : 'Not live'}
         </div>
       </div>
 
-      {/* One-click Permit buy */}
       <div style={{marginTop:16, display:'flex', gap:8, flexWrap:'wrap'}}>
         <button
           onClick={buyWithPermit}
@@ -193,7 +188,6 @@ export default function PresaleBuyUsd() {
           Buy with USDC (Permit)
         </button>
 
-        {/* Fallback: Approve + Buy using OCK */}
         {needsApproval && address && (
           <Transaction
             chainId={chainId}
@@ -203,9 +197,8 @@ export default function PresaleBuyUsd() {
               functionName: 'approve',
               args: [PRESALE, costStable],
             }]}
-            disabled={!liveNow || Boolean(finalized) || costStable === 0n}
           >
-            <TransactionButton text="Approve USDC" />
+            <TransactionButton text="Approve USDC" disabled={!liveNow || Boolean(finalized) || costStable === BigInt(0)}/>
           </Transaction>
         )}
         <Transaction
@@ -215,10 +208,8 @@ export default function PresaleBuyUsd() {
             abi: presaleUsdAbi as any,
             functionName: 'buyExact',
             args: [tokenAmount],
-          }]}
-          disabled={!address || !liveNow || Boolean(finalized) || tokenAmount === 0n || costStable === 0n}
-        >
-          <TransactionButton text="Buy (fallback)" />
+          }]}        >
+          <TransactionButton text="Buy (fallback)" disabled={!address || !liveNow || Boolean(finalized) || tokenAmount === BigInt(0) || costStable === BigInt(0)}/>
         </Transaction>
       </div>
     </div>
