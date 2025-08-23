@@ -54,9 +54,7 @@ export function SimulatePage() {
       {/* Main Form */}
       <section className="flex-1 py-8 px-4">
         <div className="container max-w-4xl mx-auto">
-          <Card className="p-8">
             <MatchUpForm />
-          </Card>
         </div>
       </section>
 

@@ -2,6 +2,8 @@
 import React from "react";
 import { X } from "lucide-react"
 import { useRouter } from 'next/navigation';
+import { Button } from "@/components/ui/button"
+
 import {
   EmailShareButton,
   FacebookShareButton,
@@ -24,12 +26,12 @@ const MatchUpDetailsModal = ({ matchupId, gameDetails, onClose }: Props) => {
     return (
         <section className="fixed inset-0 z-50 bg-black/85 flex items-center justify-center px-6">
             <div className="bg-gray-50 w-full max-w-4xl p-10 rounded-lg shadow-lg p-6 overflow-y-auto max-h-[90vh] relative">
-                <button
-                    className="absolute top-5 left-5 bg-slate-500 text-white px-4 py-2 rounded hover:bg-slate-600 cursor-pointer"
+                <Button
+                    className="w-100 md:w-64 px-3 py-2 cursor-pointer"
                     onClick={() => window.open(`/matchups/${matchupId}`, "_blank")}
                 >
-                    Share Game Simulation
-                </button>
+                    Share Simulation
+                </Button>
                 <button onClick={onClose} className="absolute top-5 right-5 text-gray-500 hover:text-black cursor-pointer">
                     <X size={34}/>
                 </button>
