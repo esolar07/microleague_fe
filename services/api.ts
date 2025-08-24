@@ -44,6 +44,20 @@ export async function createMatchUp(matchUpFormData: any) {
     }
 }
 
+export async function fetchMatchUpDetails(matchUpResultId: number) {
+    try {
+        const fetchMatchUpDetails = await fetch(`http://localhost:3001/api/v1/generate/details/${matchUpResultId}`);
+        if (!fetchMatchUpDetails.ok) {
+            throw new Error('Failed to fetch match up details.');
+            return null;
+        }
+        return await fetchMatchUpDetails.json();
+    } catch (e) {
+        console.error("Error fetching match up details:", e);
+        return null;
+    }
+}
+
 export async function createMatchUpArticle(matchUpResultId: number) {
     try {
         const createMatchUpArticle = await fetch(`http://localhost:3001/api/v1/generate/articles/${matchUpResultId}`);

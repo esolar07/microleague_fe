@@ -6,10 +6,10 @@ import MatchUpDetailsModal from "@/components/MatchUpDetailsModal";
 import {createMatchUp, fetchSeasons, fetchTeams} from '@/services/api';
 import { MatchUp, Team } from '@/types/matchup';
 import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import {debug} from "node:util";
+import { useRouter } from 'next/navigation';
 
 const MatchUpForm = () => {
+    const router = useRouter();
     const [formData, setFormData] = useState<MatchUp>({
         sport: '',
         homeTeamSeason: '',
@@ -59,8 +59,10 @@ const MatchUpForm = () => {
         const matchUpDetails = await createMatchUp(formData)
         console.log(matchUpDetails)
         setMatchupId(matchUpDetails.id);
-        setGameDetails(matchUpDetails.data);
-        setShowModal(true);
+        router.push(`/matchup/${matchUpDetails.id}`);
+
+        // setGameDetails(matchUpDetails.data);
+        // setShowModal(true);
         setIsSubmitting(false);
     };
 
