@@ -1,3 +1,11 @@
+import { PeriodSummary, TeamInfo } from "./matchupArticle";
+
+export interface TeamStats {
+  points?: number;
+  rebounds?: number;
+  assists?: number;
+}
+
 export interface MatchUp {
     sport: string;
     homeTeamSeason: string;
@@ -29,3 +37,23 @@ export interface MatchupArticle {
   opening_paragraph?: OpeningParagraph;
   game_summary?: GameSummary;
 }
+
+export interface GameDetails {
+    game_info: {
+      title: string;
+      location: string;
+      subtitle: string;
+      rules_adjustment: string;
+    };
+    final_score: string;
+    MVP: {
+      name: string;
+      stats: string;
+      summary: string;
+    };
+    game_statistics: Record<string, TeamStats>;
+    quarter_summaries?: PeriodSummary[];
+    inning_summaries?: PeriodSummary[];
+    teams: Record<string, TeamInfo>;
+    era_impact_notes: string[];
+  };

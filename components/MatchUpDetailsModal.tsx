@@ -30,7 +30,7 @@ const MatchUpDetailsModal = ({ matchupId, gameDetails, onClose }: Props) => {
                     className="w-100 md:w-64 px-3 py-2 cursor-pointer"
                     onClick={() => window.open(`/matchups/${matchupId}`, "_blank")}
                 >
-                    Share Simulation
+                    Share Game Simulation
                 </Button>
                 <button onClick={onClose} className="absolute top-5 right-5 text-gray-500 hover:text-black cursor-pointer">
                     <X size={34}/>

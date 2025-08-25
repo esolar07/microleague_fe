@@ -2,6 +2,14 @@ import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Shield, AlertTriangle, Coins, Users, Zap } from "lucide-react"
+import { 
+    ConnectWallet, 
+    Wallet, 
+    WalletDropdownFundLink,
+    WalletDropdown,
+    WalletDropdownDisconnect
+} from '@coinbase/onchainkit/wallet';
+import { Avatar, Identity, Name, EthBalance, Address } from '@coinbase/onchainkit/identity';
 import Link from "next/link"
 
 export function CoinPage() {
@@ -43,7 +51,19 @@ export function CoinPage() {
                   <h3 className="text-2xl font-bold">Presale Active</h3>
                   <div className="text-4xl font-mono">$0.10</div>
                   <p className="text-muted-foreground">per MLC token</p>
-                  <Button className="w-full" size="lg">Connect Wallet</Button>
+                  <Button className="w-full" size="lg">
+                      <Wallet className="w-full bg-transparent">
+                      <WalletDropdown>
+                      <Identity hasCopyAddressOnClick>
+                          <Name className="text-white"/>
+                          <Address className="text-white"/>
+                          <EthBalance className="text-white"/>
+                      </Identity>
+                      <WalletDropdownDisconnect />
+                      </WalletDropdown>
+                      <ConnectWallet className="w-full bg-transparent hover:bg-transparent" />
+                    </Wallet>
+                  </Button>
                 </div>
               </Card>
             </div>

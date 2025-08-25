@@ -46,7 +46,7 @@ export async function createMatchUp(matchUpFormData: any) {
 
 export async function fetchMatchUpDetails(matchUpResultId: number) {
     try {
-        const fetchMatchUpDetails = await fetch(`http://localhost:3001/api/v1/generate/details/${matchUpResultId}`);
+        const fetchMatchUpDetails = await fetch(`http://localhost:3001/api/v1/fetch/details/${matchUpResultId}`);
         if (!fetchMatchUpDetails.ok) {
             throw new Error('Failed to fetch match up details.');
             return null;
