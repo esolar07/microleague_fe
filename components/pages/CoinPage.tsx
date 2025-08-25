@@ -1,3 +1,4 @@
+"use client"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -51,8 +52,7 @@ export function CoinPage() {
                   <h3 className="text-2xl font-bold">Presale Active</h3>
                   <div className="text-4xl font-mono">$0.10</div>
                   <p className="text-muted-foreground">per MLC token</p>
-                  <Button className="w-full" size="lg">
-                      <Wallet className="w-full bg-transparent">
+                      <Wallet className="w-full">
                       <WalletDropdown>
                       <Identity hasCopyAddressOnClick>
                           <Name className="text-white"/>
@@ -61,9 +61,8 @@ export function CoinPage() {
                       </Identity>
                       <WalletDropdownDisconnect />
                       </WalletDropdown>
-                      <ConnectWallet className="w-full bg-transparent hover:bg-transparent" />
+                      <ConnectWallet className="w-full text-center bg-primary text-primary-foreground hover:bg-primary/90" />
                     </Wallet>
-                  </Button>
                 </div>
               </Card>
             </div>
