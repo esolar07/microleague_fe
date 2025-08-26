@@ -170,7 +170,7 @@ const MatchUpForm = () => {
                             </fieldset>
                             <fieldset className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                                 <Button
-                                    type="button"
+                                    type="submit"
                                     className="w-100 md:w-64 px-3 py-2 cursor-pointer"
                                     disabled={isSubmitting}
                                 > {isSubmitting ? "Simulating..." : "Simulate Match Up"}
