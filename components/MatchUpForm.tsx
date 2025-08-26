@@ -90,7 +90,7 @@ const MatchUpForm = () => {
                                                 <Select.Value placeholder="Select a sport" />
                                             </Select.Trigger>
                                             <Select.Content>
-                                                <Select.Item value="">
+                                                <Select.Item value=" ">
                                                     Select a sport
                                                 </Select.Item>
                                                 <Select.Item value="football">
