@@ -57,8 +57,10 @@ const MatchUpForm = () => {
         setSubmitMessage(null);
         const matchUpDetails = await createMatchUp(formData)
         console.log(matchUpDetails)
-        setMatchupId(matchUpDetails.id);
-        router.push(`/matchups/${matchUpDetails.id}`);
+        if (matchUpDetails.id) {
+            setMatchupId(matchUpDetails.id);
+            router.push(`/matchups/${matchUpDetails.id}`);
+        }
 
         // setGameDetails(matchUpDetails.data);
         // setShowModal(true);
