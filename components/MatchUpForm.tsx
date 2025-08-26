@@ -1,5 +1,6 @@
 "use client";
 import React, {useState, FormEvent, ChangeEvent} from 'react';
+import * as Select from "@radix-ui/react-select";
 import Container from "@/components/layout/Container";
 import MatchUpDetailsModal from "@/components/MatchUpDetailsModal";
 import {createMatchUp, fetchSeasons, fetchTeams} from '@/services/api';
@@ -77,19 +78,32 @@ const MatchUpForm = () => {
                                 <div className="sm:col-span-3">
                                     <label htmlFor="sport" className="block text-md font-medium text-gray-900">Sport:</label>
                                     <div className="mt-2 grid grid-cols-1">
-                                        <select
-                                            className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-                                            id="sport"
-                                            name="sport"
+                                        <Select.Root
                                             value={formData.sport}
-                                            onChange={(e) => handleSportChange(e.target.value)}
-                                            onInput={(e) => handleSportChange((e.target as HTMLSelectElement).value)}
+                                            onValueChange={(value: string) => handleSportChange(value)}
                                         >
-                                            <option value="">Select a sport</option>
-                                            <option value="football">Football</option>
-                                            <option value="basketball">Basketball</option>
-                                            <option value="baseball">Baseball</option>
-                                        </select>
+                                            <Select.Trigger
+                                                className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                                                id="sport"
+                                                name="sport"
+                                            >
+                                                <Select.Value placeholder="Select a sport" />
+                                            </Select.Trigger>
+                                            <Select.Content>
+                                                <Select.Item value="">
+                                                    Select a sport
+                                                </Select.Item>
+                                                <Select.Item value="football">
+                                                    Football
+                                                </Select.Item>
+                                                <Select.Item value="basketball">
+                                                    Basketball
+                                                </Select.Item>
+                                                <Select.Item value="baseball">
+                                                    Baseball
+                                                </Select.Item>
+                                            </Select.Content>
+                                        </Select.Root>
                                     </div>
                                 </div>
                             </fieldset>
