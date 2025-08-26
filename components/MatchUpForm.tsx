@@ -82,7 +82,7 @@ const MatchUpForm = () => {
                                             id="sport"
                                             name="sport"
                                             value={formData.sport}
-                                            onChange={(e) => {
+                                            onChange={e => {
                                                 const value = e.target.value;
                                                 handleSportChange(value);
                                             }}
