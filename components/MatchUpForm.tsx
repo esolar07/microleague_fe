@@ -1,6 +1,5 @@
 "use client";
 import React, {useState, FormEvent, ChangeEvent} from 'react';
-import Form from 'next/form'
 import Container from "@/components/layout/Container";
 import MatchUpDetailsModal from "@/components/MatchUpDetailsModal";
 import {createMatchUp, fetchSeasons, fetchTeams} from '@/services/api';
@@ -59,7 +58,7 @@ const MatchUpForm = () => {
         const matchUpDetails = await createMatchUp(formData)
         console.log(matchUpDetails)
         setMatchupId(matchUpDetails.id);
-        router.push(`/matchup/${matchUpDetails.id}`);
+        router.push(`/matchups/${matchUpDetails.id}`);
 
         // setGameDetails(matchUpDetails.data);
         // setShowModal(true);
@@ -79,12 +78,14 @@ const MatchUpForm = () => {
                                     <label htmlFor="sport" className="block text-md font-medium text-gray-900">Sport:</label>
                                     <div className="mt-2 grid grid-cols-1">
                                         <select
-                                            className="cflex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                                            // className="cflex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                                             id="sport"
                                             name="sport"
                                             value={formData.sport}
                                             onChange={(e) => handleSportChange(e.target.value)}
                                             required
+                                            className="mt-1 block w-full rounded-md border border-gray-300 bg-white p-2 text-base text-gray-900 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+
                                         >
                                             <option value="">Select a sport</option>
                                             <option value="football">Football</option>
@@ -99,12 +100,14 @@ const MatchUpForm = () => {
                                     <label htmlFor="homeTeamSeason" className="block text-md font-medium text-gray-900">Home Team Season:</label>
                                     <div className="mt-2">
                                         <select
-                                            className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                                            // className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                                             id="homeTeamSeason"
                                             name="homeTeamSeason"
                                             value={formData.homeTeamSeason}
                                             onChange={(e) => handleHomeTeamSeasonChange(e.target.value, true)}
                                             required
+                                            className="mt-1 block w-full rounded-md border border-gray-300 bg-white p-2 text-base text-gray-900 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+
                                         >
                                             <option value="">Select Season</option>
                                             {seasons.map((season) => (
