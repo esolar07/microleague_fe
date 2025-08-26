@@ -2,7 +2,7 @@ import { MatchUp, Team } from '@/types/matchup';
 
 export async function fetchSeasons(sport: string): Promise<string[]> {
     try {
-        const seasons = await fetch(`http://localhost:3001/api/v1/seasons/${sport}`);
+        const seasons = await fetch(`${process.env.NEXT_PUBLIC_MICROLEAGUE_BASE_API}/seasons/${sport}`);
         if (!seasons.ok) {
             throw new Error('Failed to fetch sport eras.');
         }
@@ -16,7 +16,7 @@ export async function fetchSeasons(sport: string): Promise<string[]> {
 
 export async function fetchTeams(sport: string, era: string): Promise<Team[]> {
     try {
-        const teams = await fetch(`http://localhost:3001/api/v1/seasons/${sport}/${era}`);
+        const teams = await fetch(`${process.env.NEXT_PUBLIC_MICROLEAGUE_BASE_API}/seasons/${sport}/${era}`);
         if (!teams.ok) {
             throw new Error('Failed to fetch teams.');
         }
@@ -30,7 +30,7 @@ export async function fetchTeams(sport: string, era: string): Promise<Team[]> {
 
 export async function createMatchUp(matchUpFormData: any) {
     try {
-        const matchUpDetails =  await fetch(`http://localhost:3001/api/v1/generate`, {
+        const matchUpDetails =  await fetch(`${process.env.NEXT_PUBLIC_MICROLEAGUE_BASE_API}/generate`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -46,7 +46,7 @@ export async function createMatchUp(matchUpFormData: any) {
 
 export async function fetchMatchUpDetails(matchUpResultId: number) {
     try {
-        const fetchMatchUpDetails = await fetch(`http://localhost:3001/api/v1/fetch/details/${matchUpResultId}`);
+        const fetchMatchUpDetails = await fetch(`${process.env.NEXT_PUBLIC_MICROLEAGUE_BASE_API}/fetch/details/${matchUpResultId}`);
         if (!fetchMatchUpDetails.ok) {
             throw new Error('Failed to fetch match up details.');
             return null;
@@ -60,7 +60,7 @@ export async function fetchMatchUpDetails(matchUpResultId: number) {
 
 export async function createMatchUpArticle(matchUpResultId: number) {
     try {
-        const createMatchUpArticle = await fetch(`http://localhost:3001/api/v1/generate/articles/${matchUpResultId}`);
+        const createMatchUpArticle = await fetch(`${process.env.NEXT_PUBLIC_MICROLEAGUE_BASE_API}/api/v1/generate/articles/${matchUpResultId}`);
         if (!createMatchUpArticle.ok) {
             throw new Error('Failed to create match up article.');
             return null

@@ -78,14 +78,11 @@ const MatchUpForm = () => {
                                     <label htmlFor="sport" className="block text-md font-medium text-gray-900">Sport:</label>
                                     <div className="mt-2 grid grid-cols-1">
                                         <select
-                                            className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
+                                            className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                                             id="sport"
                                             name="sport"
                                             value={formData.sport}
-                                            onChange={e => {
-                                                const value = e.target.value;
-                                                handleSportChange(value);
-                                            }}
+                                            onChange={(e) => {handleSportChange(e.target.value)}}
                                         >
                                             <option value="">Select a sport</option>
                                             <option value="football">Football</option>
