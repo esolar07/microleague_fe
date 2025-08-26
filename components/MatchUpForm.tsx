@@ -82,8 +82,10 @@ const MatchUpForm = () => {
                                             id="sport"
                                             name="sport"
                                             value={formData.sport}
-                                            onChange={(e) => handleSportChange(e.target.value)}
-                                            onInput={(e) => handleSportChange((e.target as HTMLSelectElement).value)}
+                                            onChange={(e) => {
+                                                const value = e.target.value;
+                                                handleSportChange(value);
+                                            }}
                                         >
                                             <option value="">Select a sport</option>
                                             <option value="football">Football</option>
