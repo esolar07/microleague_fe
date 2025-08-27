@@ -15,7 +15,7 @@ export function Navigation() {
 
   const navItems = [
     { name: "Simulate", href: "/simulate" },
-    { name: "Recaps", href: "/recaps" },
+    // { name: "Recaps", href: "/recaps" },
     { name: "Community", href: "/community" },
     { name: "About", href: "/about" },
     { name: "Coin", href: "/coin" },
