@@ -9,7 +9,7 @@ export const SITE = {
   social: {
     x: "https://x.com/MicroLeagueSports",
     telegram: "https://t.me/MicroLeagueSports",
-    discord: "https://discord.gg/yourinvite",
+    discord: "https://discord.gg/KMj49h4SER",
   },
   legal: "© 2025 MicroLeague Sports Inc. All team names are trademarks of their respective owners.",
 }

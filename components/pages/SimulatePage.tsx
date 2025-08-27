@@ -76,7 +76,7 @@ export function SimulatePage() {
                 The Amazin' Mets take on Murderers' Row in this cross-era showdown.
               </p>
               <Button variant="outline" size="sm" className="w-full">
-                Try This Matchup
+                <Link href="/matchups/62">Try This Matchup</Link>
               </Button>
             </Card>
             <Card className="p-6 space-y-4">
@@ -88,8 +88,8 @@ export function SimulatePage() {
               <p className="text-sm text-muted-foreground">
                 Perfect season offense meets legendary defense in this epic clash.
               </p>
-              <Button variant="outline" size="sm" className="w-full">
-                Try This Matchup
+             <Button variant="outline" size="sm" className="w-full">
+                <Link href="/matchups/63">Try This Matchup</Link>
               </Button>
             </Card>
             <Card className="p-6 space-y-4">
@@ -102,7 +102,7 @@ export function SimulatePage() {
                 Jordan's championship team faces Curry's record-breaking squad.
               </p>
               <Button variant="outline" size="sm" className="w-full">
-                Try This Matchup
+                <Link href="/matchups/64">Try This Matchup</Link>
               </Button>
             </Card>
           </div>

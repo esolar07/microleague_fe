@@ -103,7 +103,7 @@ export function HomePage() {
                 </div>
               </div>
               <Button size="lg" className="w-full" asChild>
-                <Link href="/simulate">
+                <Link href="/matchups/62">
                   Simulate Game
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Link>
