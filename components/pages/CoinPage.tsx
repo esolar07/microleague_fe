@@ -43,7 +43,6 @@ export function CoinPage() {
               </div>
               <div className="flex flex-col sm:flex-row gap-4">
                 <Button size="xl">Buy MLC Now</Button>
-                <Button variant="outline" size="xl">View Dashboard</Button>
               </div>
             </div>
             <div className="lg:order-2">

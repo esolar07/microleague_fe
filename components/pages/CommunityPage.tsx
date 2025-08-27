@@ -19,7 +19,7 @@ export function CommunityPage() {
           </div>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button size="xl" asChild>
-              <Link href="https://discord.gg/microleague" target="_blank">
+              <Link href="https://discord.gg/KMj49h4SER" target="_blank">
                 Join Discord
                 <ExternalLink className="ml-2 h-5 w-5" />
               </Link>
