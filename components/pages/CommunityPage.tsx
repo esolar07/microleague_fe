@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
+import { Input } from "@/components/ui/input"
 import Link from "next/link"
 import { MessageCircle, Users, Trophy, ExternalLink } from "lucide-react"
 
@@ -20,12 +21,6 @@ export function CommunityPage() {
             <Button size="xl" asChild>
               <Link href="https://discord.gg/microleague" target="_blank">
                 Join Discord
-                <ExternalLink className="ml-2 h-5 w-5" />
-              </Link>
-            </Button>
-            <Button variant="outline" size="xl" asChild>
-              <Link href="https://t.me/microleague" target="_blank">
-                Telegram Group
                 <ExternalLink className="ml-2 h-5 w-5" />
               </Link>
             </Button>
@@ -74,8 +69,8 @@ export function CommunityPage() {
               Multiple platforms, one amazing community.
             </p>
           </div>
-          <div className="grid md:grid-cols-2 gap-8">
-            <Card className="p-8 space-y-6">
+          <div className="flex justify-center">
+            <Card className="p-8 space-y-6 w-full max-w-xl">
               <div className="flex items-center gap-4">
                 <div className="w-12 h-12 bg-[#5865F2] text-white rounded-lg flex items-center justify-center">
                   <MessageCircle className="h-6 w-6" />
@@ -95,45 +90,13 @@ export function CommunityPage() {
                   <span className="text-sm text-muted-foreground">Share your epic matchups</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <Badge variant="outline">#debates</Badge>
+                  <Badge variant="outline">#hot-takes</Badge>
                   <span className="text-sm text-muted-foreground">Settle the GOAT arguments</span>
                 </div>
               </div>
               <Button className="w-full" asChild>
                 <Link href="https://discord.gg/microleague" target="_blank">
                   Join Discord Server
-                  <ExternalLink className="ml-2 h-4 w-4" />
-                </Link>
-              </Button>
-            </Card>
-
-            <Card className="p-8 space-y-6">
-              <div className="flex items-center gap-4">
-                <div className="w-12 h-12 bg-[#0088cc] text-white rounded-lg flex items-center justify-center">
-                  <MessageCircle className="h-6 w-6" />
-                </div>
-                <div>
-                  <h3 className="text-xl font-semibold">Telegram Group</h3>
-                  <p className="text-muted-foreground">Mobile-first community chat</p>
-                </div>
-              </div>
-              <div className="space-y-3">
-                <div className="flex items-center gap-2">
-                  <Badge variant="outline">Announcements</Badge>
-                  <span className="text-sm text-muted-foreground">Latest updates</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Badge variant="outline">Quick Polls</Badge>
-                  <span className="text-sm text-muted-foreground">Vote on features</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Badge variant="outline">Mobile Alerts</Badge>
-                  <span className="text-sm text-muted-foreground">Never miss a beat</span>
-                </div>
-              </div>
-              <Button variant="outline" className="w-full" asChild>
-                <Link href="https://t.me/microleague" target="_blank">
-                  Join Telegram
                   <ExternalLink className="ml-2 h-4 w-4" />
                 </Link>
               </Button>
@@ -180,7 +143,7 @@ export function CommunityPage() {
       <section className="py-16 px-4 bg-secondary/20">
         <div className="container max-w-6xl mx-auto">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Community Highlights</h2>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4"> Live from @MicroLeagueSports</h2>
             <p className="text-xl text-muted-foreground">
               Amazing content created by our community members.
             </p>
@@ -220,6 +183,68 @@ export function CommunityPage() {
               <div className="text-xs text-muted-foreground">Community voted • 5 days ago</div>
             </Card>
           </div>
+        </div>
+      </section>
+
+      {/* Become a Creator*/}
+      <section className="py-16 px-4">
+        <div className="container max-w-4xl mx-auto">
+          <div className="text-center mb-12 space-y-4">
+            <h2 className="text-3xl md:text-4xl font-bold">Become a Creator</h2>
+            <p className="text-xl text-muted-foreground">
+              Get people talking about who the GOAT is, and earn MicroLeague Coins the more buzz you create. Spots are
+              limited—sign up below.
+            </p>
+          </div>
+          <Card className="p-8 max-w-2xl mx-auto">
+            <form className="space-y-6">
+              <div className="grid md:grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <label htmlFor="name" className="text-sm font-medium">
+                    Full Name
+                  </label>
+                  <Input id="name" placeholder="Enter your name" />
+                </div>
+                <div className="space-y-2">
+                  <label htmlFor="email" className="text-sm font-medium">
+                    Email Address
+                  </label>
+                  <Input id="email" type="email" placeholder="Enter your email" />
+                </div>
+              </div>
+              <div className="space-y-2">
+                <label htmlFor="social" className="text-sm font-medium">
+                  Social Media Handle
+                </label>
+                <Input id="social" placeholder="@yourusername (Twitter, Instagram, etc.)" />
+              </div>
+              <div className="space-y-2">
+                <label htmlFor="experience" className="text-sm font-medium">
+                  Tell us about your sports content experience
+                </label>
+                <textarea
+                  className="w-full rounded-md border border-input bg-background px-3 py-2" 
+                  id="experience"
+                  placeholder="Describe your background in sports content creation, audience size, and what makes you passionate about sports debates..."
+                  rows={4}
+                />
+              </div>
+              <div className="space-y-2">
+                <label htmlFor="ideas" className="text-sm font-medium">
+                  What kind of MicroLeague content would you create?
+                </label>
+                <textarea
+                  className="w-full rounded-md border border-input bg-background px-3 py-2"
+                  id="ideas"
+                  placeholder="Share your ideas for simulations, debates, or content series you'd want to create..."
+                  rows={3}
+                />
+              </div>
+              <Button type="submit" size="lg" className="w-full">
+                Apply for Rivalry Rewards Creator Beta
+              </Button>
+            </form>
+          </Card>
         </div>
       </section>
     </div>
