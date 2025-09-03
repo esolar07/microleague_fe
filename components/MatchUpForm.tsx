@@ -56,6 +56,7 @@ const MatchUpForm = () => {
         setIsSubmitting(true);
         setSubmitMessage(null);
         const matchUpDetails = await createMatchUp(formData)
+        // setShowModal(true);
         console.log(matchUpDetails)
         if (matchUpDetails.id) {
             setMatchupId(matchUpDetails.id);
@@ -63,7 +64,7 @@ const MatchUpForm = () => {
         }
 
         // setGameDetails(matchUpDetails.data);
-        // setShowModal(true);
+    
         setIsSubmitting(false);
     };
 
@@ -182,8 +183,10 @@ const MatchUpForm = () => {
                     </div>
                 </form>
             </section>
-            {showModal && (
-                <MatchUpDetailsModal matchupId={matchupId} gameDetails={gameDetails} onClose={() => setShowModal(false)} />
+            {isSubmitting && (
+                <div className="fixed inset-0 bg-black/40 flex justify-center items-center z-50">
+                    <div className="w-10 h-10 border-4 border-white border-t-transparent rounded-full animate-spin"></div>
+                </div>
             )}
         </Container>
 

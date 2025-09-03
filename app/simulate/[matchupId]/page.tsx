@@ -7,15 +7,28 @@ import { Button } from "@/components/ui/button"
 import { PeriodSummary, TeamInfo } from "@/types/matchupArticle";
 import { GameDetails, TeamStats } from '@/types/matchup';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@radix-ui/react-tabs"
-
+import {
+  EmailShareButton,
+  EmailIcon,
+  WhatsappShareButton,
+  WhatsappIcon,
+  TwitterShareButton,
+  TwitterIcon,
+} from "react-share";
+  import Head from 'next/head';
 
 const MatchUpDetailsPage = () => {
   const router = useRouter();
   const params = useParams();
   const { matchupId } = params;
   const [gameDetails, setGameDetails] = useState<GameDetails | null>(null);
+  const [currentUrl, setCurrentUrl] = useState('');
+  
 
   useEffect(() => {
+    if (typeof window !== 'undefined') {
+      setCurrentUrl(window.location.href);
+    }
     if (matchupId) {                
       const id = Array.isArray(matchupId) ? matchupId[0] : matchupId;
       fetchMatchUpDetails(Number(id))
@@ -32,20 +45,30 @@ const MatchUpDetailsPage = () => {
     }
   }, [matchupId]);
 
-  if (!matchupId || !gameDetails) return <div>Loading...</div>;
-    const periodKey: string = gameDetails.quarter_summaries ? 'quarter' : 'inning';
+  if (!matchupId || !gameDetails) return (
+    <div className="fixed inset-0 bg-black/60 flex justify-center items-center z-50">
+        <div className="w-10 h-10 border-4 border-white border-t-transparent rounded-full animate-spin"></div>
+    </div>
+    );
+
+  const periodKey: string = gameDetails.quarter_summaries ? 'quarter' : 'inning';
     const periodSummaries = gameDetails.quarter_summaries || gameDetails.inning_summaries;
 
   return (
 
      <section className="flex items-center justify-center py-5 px-3">
         <div className="w-full max-w-4xl py-10">
-            <Button
-                className="w-100 md:w-64 px-3 py-2 cursor-pointer"
-                onClick={() => window.open(`/matchups/${matchupId}/share`, "_blank")}
-            >
-                Share Matchup
-            </Button>
+            <div className="flex flex-row justify-end mb-4">
+                <EmailShareButton className="mx-2" url={currentUrl} subject={gameDetails.game_info.title}>
+                <EmailIcon size={32} round={true} />
+                </EmailShareButton>
+                <TwitterShareButton className="mx-2"  url={currentUrl} title={gameDetails.game_info.title}>
+                <TwitterIcon size={32} round={true} />
+                </TwitterShareButton>
+                <WhatsappShareButton className="mx-2"  url={currentUrl} title={gameDetails.game_info.title}>
+                <WhatsappIcon size={32} round={true} />
+                </WhatsappShareButton>
+            </div>
             <div className="relative z-10" aria-labelledby="dialog-title" role="dialog" aria-modal="true">
                 <div className="max-w-6xl mx-auto mb-5 px-2 py-10 space-y-10 text-gray-800">
                     <div className="space-y-2">
