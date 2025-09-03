@@ -9,14 +9,14 @@ import { useAccount, useReadContract, useWalletClient, useWriteContract } from '
 import { formatUnits, parseUnits } from 'viem';
 import { presaleUsdAbi } from '@/lib/abis/presaleUsd';
 import { erc20Abi } from '@/lib/abis/erc20';
-import BuyWidget from '../token/BuyWidget';
-import { 
-    ConnectWallet, 
-    Wallet, 
-    WalletDropdownFundLink,
-    WalletDropdown,
-    WalletDropdownDisconnect
-} from '@coinbase/onchainkit/wallet';
+// import BuyWidget from '../token/BuyWidget';
+// import { 
+//     ConnectWallet, 
+//     Wallet, 
+//     WalletDropdownFundLink,
+//     WalletDropdown,
+//     WalletDropdownDisconnect
+// } from '@coinbase/onchainkit/wallet';
 import { Avatar, Identity, Name, EthBalance, Address } from '@coinbase/onchainkit/identity';
 import Link from "next/link"
 
