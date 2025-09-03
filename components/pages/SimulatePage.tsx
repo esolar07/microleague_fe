@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import MatchUpForm from "@/components/MatchUpForm"
+import MatchupCard from "../MatchupCard"
 import Link from "next/link"
 import { ArrowLeft, Zap, Trophy, Users } from "lucide-react"
 
@@ -66,45 +67,33 @@ export function SimulatePage() {
             <p className="text-muted-foreground">See what the community is simulating</p>
           </div>
           <div className="grid md:grid-cols-3 gap-6">
-            <Card className="p-6 space-y-4">
-              <div className="flex items-center gap-2">
-                <Badge variant="outline">MLB</Badge>
-                <Badge variant="outline">Classic</Badge>
-              </div>
-              <h3 className="font-semibold">1986 Mets vs 1927 Yankees</h3>
-              <p className="text-sm text-muted-foreground">
-                The Amazin' Mets take on Murderers' Row in this cross-era showdown.
-              </p>
-              <Button variant="outline" size="sm" className="w-full">
-                <Link href="/matchups/62">Try This Matchup</Link>
-              </Button>
-            </Card>
-            <Card className="p-6 space-y-4">
-              <div className="flex items-center gap-2">
-                <Badge variant="outline">NFL</Badge>
-                <Badge variant="outline">Dynasty</Badge>
-              </div>
-              <h3 className="font-semibold">2007 Patriots vs 1985 Bears</h3>
-              <p className="text-sm text-muted-foreground">
-                Perfect season offense meets legendary defense in this epic clash.
-              </p>
-             <Button variant="outline" size="sm" className="w-full">
-                <Link href="/matchups/63">Try This Matchup</Link>
-              </Button>
-            </Card>
-            <Card className="p-6 space-y-4">
-              <div className="flex items-center gap-2">
-                <Badge variant="outline">NBA</Badge>
-                <Badge variant="outline">GOAT</Badge>
-              </div>
-              <h3 className="font-semibold">1996 Bulls vs 2017 Warriors</h3>
-              <p className="text-sm text-muted-foreground">
-                Jordan's championship team faces Curry's record-breaking squad.
-              </p>
-              <Button variant="outline" size="sm" className="w-full">
-                <Link href="/matchups/62">Try This Matchup</Link>
-              </Button>
-            </Card>
+            <MatchupCard
+              sport="baseball"
+              homeTeamSeason="1986"
+              homeTeamName="Mets"
+              awayTeamSeason="1927"
+              awayTeamName="Yankees"
+              badges={["MLB", "Classic"]}
+              description="The Amazin' Mets take on Murderers' Row in this cross-era showdown."
+            />
+            <MatchupCard
+              sport="football"
+              homeTeamSeason="2007"
+              homeTeamName="Patriots"
+              awayTeamSeason="1985"
+              awayTeamName="Bears"
+              badges={["NFL", "Dynasty"]}
+              description="Perfect season offense meets legendary defense in this epic clash."
+            />
+            <MatchupCard
+              sport="nba"
+              homeTeamSeason="1996"
+              homeTeamName="Bulls"
+              awayTeamSeason="2018"
+              awayTeamName="Warriors"
+              badges={["NBA", "Goat"]}
+              description="Jordan's championship team faces Curry's record-breaking squad."
+            />
           </div>
         </div>
       </section>

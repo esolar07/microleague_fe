@@ -75,3 +75,12 @@
     @apply bg-background text-foreground font-sans;
   }
 }
+
+@keyframes spin-slow {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+.animate-spin-slow {
+  animation: spin-slow 4s linear infinite;
+}

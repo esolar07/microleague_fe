@@ -1,11 +1,28 @@
+"use client"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Input } from "@/components/ui/input"
 import Link from "next/link"
 import { ArrowRight, Play, Users, Trophy } from "lucide-react"
+import { useRouter } from 'next/navigation';
+import { createMatchUp } from '@/services/api';
 
 export function HomePage() {
+  const router = useRouter();
+  const createQuickMatchup = async () => {
+    const matchUpDetails = await createMatchUp({
+        sport: "baseball",
+        homeTeamSeason: "1986",
+        homeTeamName: "Mets",
+        awayTeamSeason: "1927",
+        awayTeamName: "Yankees",
+    });
+        
+    if (matchUpDetails.id) {
+        router.push(`/simulate/${matchUpDetails.id}`);
+    }
+  }
   return (
     <div className="flex flex-col">
       {/* Hero Section */}
@@ -102,11 +119,9 @@ export function HomePage() {
                   </div>
                 </div>
               </div>
-              <Button size="lg" className="w-full" asChild>
-                <Link href="/matchups/62">
+              <Button size="lg" className="w-full" onClick={createQuickMatchup}>
                   Simulate Game
-                  <ArrowRight className="ml-2 h-5 w-5" />
-                </Link>
+                  {/* <ArrowRight className="ml-2 h-5 w-5" /> */}
               </Button>
             </div>
           </Card>
@@ -219,7 +234,7 @@ export function HomePage() {
               <div className="text-xs text-muted-foreground">by @CourtVision • 5 days ago</div>
             </Card>
           </div>
-          <div className="text-center mt-8">
+          {/* <div className="text-center mt-8">
             <Button variant="outline" asChild>
               <Link href="/recaps">
                 View All Recaps
@@ -227,7 +242,7 @@ export function HomePage() {
               </Link>
             </Button>
           </div>
-        </div>
+        </div> */}
       </section>
 
       {/* Email Signup */}

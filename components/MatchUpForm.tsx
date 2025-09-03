@@ -6,6 +6,7 @@ import {createMatchUp, fetchSeasons, fetchTeams} from '@/services/api';
 import { MatchUp, Team } from '@/types/matchup';
 import { Button } from "@/components/ui/button"
 import { useRouter } from 'next/navigation';
+import LoadingOverlay from "@/components/layout/LoadingOverlay";
 
 const MatchUpForm = () => {
     const router = useRouter();
@@ -62,10 +63,7 @@ const MatchUpForm = () => {
             setMatchupId(matchUpDetails.id);
             router.push(`/simulate/${matchUpDetails.id}`);
         }
-
         // setGameDetails(matchUpDetails.data);
-    
-        setIsSubmitting(false);
     };
 
     return (
@@ -172,11 +170,8 @@ const MatchUpForm = () => {
                                 </div>
                             </fieldset>
                             <fieldset className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-                                <Button
-                                    type="submit"
-                                    className="w-100 md:w-64 px-3 py-2 cursor-pointer"
-                                    disabled={isSubmitting}
-                                > {isSubmitting ? "Simulating..." : "Simulate Match Up"}
+                                <Button type="submit" className="w-100 md:w-64 px-3 py-2 cursor-pointer" disabled={isSubmitting}>
+                                    Simulate Match Up
                                 </Button>
                             </fieldset>
                         </div>
@@ -184,12 +179,9 @@ const MatchUpForm = () => {
                 </form>
             </section>
             {isSubmitting && (
-                <div className="fixed inset-0 bg-black/40 flex justify-center items-center z-50">
-                    <div className="w-10 h-10 border-4 border-white border-t-transparent rounded-full animate-spin"></div>
-                </div>
+                <LoadingOverlay text="Simulating Match Up..."/>
             )}
         </Container>
-
     );
 };
 
