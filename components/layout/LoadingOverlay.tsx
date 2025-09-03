@@ -11,7 +11,7 @@ const LoadingOverlay: React.FC<LoadingOverlayProps> = ({ text = "Loading..." }) 
       <div className="flex flex-col items-center space-y-6">
         <div className="w-32 h-32 sm:w-40 sm:h-40 md:w-56 md:h-56 lg:w-64 lg:h-64 flex items-center justify-center">
           <img
-            src="/microleague-sports-logo.png"
+            src="/microleague-sports-beta-logo.png"
             alt="Microleague Logo"
             className="w-full h-full object-contain animate-pulse"
           />

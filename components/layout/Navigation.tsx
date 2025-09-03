@@ -27,7 +27,7 @@ export function Navigation() {
         {/* Logo */}
         <Link href="/" className="flex items-center space-x-2">
           <Image
-            src="/microleague-sports-logo.png"
+            src="/microleague-sports-beta-logo.png"
             alt="Microleague Sport Logo"
             width={150}
             height={75}
