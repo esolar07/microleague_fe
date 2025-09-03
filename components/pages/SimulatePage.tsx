@@ -102,7 +102,7 @@ export function SimulatePage() {
                 Jordan's championship team faces Curry's record-breaking squad.
               </p>
               <Button variant="outline" size="sm" className="w-full">
-                <Link href="/matchups/64">Try This Matchup</Link>
+                <Link href="/matchups/6">Try This Matchup</Link>
               </Button>
             </Card>
           </div>

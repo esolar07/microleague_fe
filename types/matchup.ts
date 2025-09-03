@@ -51,9 +51,32 @@ export interface GameDetails {
       stats: string;
       summary: string;
     };
+    home_team: {
+      name: string;
+      season: string;
+      coach: string;
+      era_style: string;
+      actual_season_record: string;
+      notable_players: string[];
+      game_statistics: Record<string, TeamStats>;
+      box_score: any[];
+      injuries: string[];
+    };
+    away_team: {
+      name: string;
+      season: string;
+      coach: string;
+      era_style: string;
+      actual_season_record: string;
+      notable_players: string[];
+      game_statistics: Record<string, TeamStats>;
+      box_score: any[];
+      injuries: string[];
+    };
     game_statistics: Record<string, TeamStats>;
     quarter_summaries?: PeriodSummary[];
     inning_summaries?: PeriodSummary[];
     teams: Record<string, TeamInfo>;
+    box_score: any[];
     era_impact_notes: string[];
   };

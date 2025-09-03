@@ -7,7 +7,7 @@ export const SITE = {
     secondary: "Join the Clubhouse",
   },
   social: {
-    x: "https://x.com/MicroLeagueSports",
+    x: "https://x.com/microleagueapp",
     telegram: "https://t.me/MicroLeagueSports",
     discord: "https://discord.gg/KMj49h4SER",
   },

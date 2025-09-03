@@ -59,7 +59,7 @@ const MatchUpForm = () => {
         console.log(matchUpDetails)
         if (matchUpDetails.id) {
             setMatchupId(matchUpDetails.id);
-            router.push(`/matchups/${matchUpDetails.id}`);
+            router.push(`/simulate/${matchUpDetails.id}`);
         }
 
         // setGameDetails(matchUpDetails.data);
