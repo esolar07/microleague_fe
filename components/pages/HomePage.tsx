@@ -30,6 +30,7 @@ export function HomePage() {
     }
   }
   return (
+    isSubmitting ? <LoadingOverlay text="Simulating Matchup..." /> :
     <div className="flex flex-col">
       {/* Hero Section */}
       <section className="py-20 px-4 bg-gradient-to-br from-background to-secondary/20">
@@ -263,8 +264,5 @@ export function HomePage() {
         </div>
       </section>
     </div>
-    {isSubmitting && (
-      <LoadingOverlay text="Simulating Match Up..." />
-    )}
   )
 }
