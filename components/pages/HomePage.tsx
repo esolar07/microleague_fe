@@ -7,6 +7,7 @@ import Link from "next/link"
 import { ArrowRight, Play, Users, Trophy } from "lucide-react"
 import { useRouter } from 'next/navigation';
 import { createMatchUp, sendMatchUpToDiscord } from '@/services/api';
+import MatchupCard from "../MatchupCard";
 
 export function HomePage() {
   const router = useRouter();
@@ -194,46 +195,37 @@ export function HomePage() {
       <section className="py-16 px-4 bg-secondary/20">
         <div className="container max-w-6xl mx-auto">
           <div className="text-center mb-12 space-y-4">
-            <h2 className="text-3xl md:text-4xl font-bold">Latest Fan Recaps</h2>
+            <h2 className="text-3xl md:text-4xl font-bold">Popular Matchups</h2>
             <p className="text-xl text-muted-foreground">See how the community is rewriting sports history.</p>
           </div>
           <div className="grid md:grid-cols-3 gap-6">
-            <Card className="p-6 space-y-4">
-              <div className="flex items-center gap-2">
-                <Trophy className="h-5 w-5 text-accent" />
-                <Badge variant="outline">MLB</Badge>
-                <Badge variant="outline">1986</Badge>
-              </div>
-              <h3 className="font-semibold">Mets vs. Red Sox: Game 7 Redemption</h3>
-              <p className="text-sm text-muted-foreground">
-                What if Buckner made the play? A thrilling alternate ending to the '86 World Series.
-              </p>
-              <div className="text-xs text-muted-foreground">by @BaseballHistorian • 2 days ago</div>
-            </Card>
-            <Card className="p-6 space-y-4">
-              <div className="flex items-center gap-2">
-                <Trophy className="h-5 w-5 text-accent" />
-                <Badge variant="outline">NFL</Badge>
-                <Badge variant="outline">2007</Badge>
-              </div>
-              <h3 className="font-semibold">Perfect Season Showdown</h3>
-              <p className="text-sm text-muted-foreground">
-                2007 Patriots vs. 1972 Dolphins - which undefeated team reigns supreme?
-              </p>
-              <div className="text-xs text-muted-foreground">by @GridironGuru • 3 days ago</div>
-            </Card>
-            <Card className="p-6 space-y-4">
-              <div className="flex items-center gap-2">
-                <Trophy className="h-5 w-5 text-accent" />
-                <Badge variant="outline">NBA</Badge>
-                <Badge variant="outline">1996</Badge>
-              </div>
-              <h3 className="font-semibold">Bulls vs. Warriors: Era Clash</h3>
-              <p className="text-sm text-muted-foreground">
-                Jordan's 72-win Bulls take on Curry's record-breaking Warriors in an epic simulation.
-              </p>
-              <div className="text-xs text-muted-foreground">by @CourtVision • 5 days ago</div>
-            </Card>
+            <MatchupCard
+              sport="baseball"
+              homeTeamSeason="1986"
+              homeTeamName="Mets"
+              awayTeamSeason="1986"
+              awayTeamName="Red Sox"
+              badges={["MLB", "Classic"]}
+              description="What if Buckner made the play? A thrilling alternate ending to the '86 World Series."
+            />
+            <MatchupCard
+              sport="football"
+              homeTeamSeason="2007"
+              homeTeamName="Patriots"
+              awayTeamSeason="1972"
+              awayTeamName="Dolphins"
+              badges={["NFL", "Dynasty", "Perfect Season"]}
+              description="2007 Patriots vs. 1972 Dolphins - which undefeated team reigns supreme?"
+            />
+            <MatchupCard
+              sport="basketball"
+              homeTeamSeason="1996"
+              homeTeamName="Bulls"
+              awayTeamSeason="2010"
+              awayTeamName="Lakers"
+              badges={["NBA", "Goat"]}
+              description="Championship team face-off - Jordan vs. Kobe in an epic simulation."
+            />
           </div>
           {/* <div className="text-center mt-8">
             <Button variant="outline" asChild>

@@ -89,7 +89,7 @@ export function SimulatePage() {
               sport="basketball"
               homeTeamSeason="1996"
               homeTeamName="Bulls"
-              awayTeamSeason="2018"
+              awayTeamSeason="2017"
               awayTeamName="Warriors"
               badges={["NBA", "Goat"]}
               description="Jordan's championship team faces Curry's record-breaking squad."

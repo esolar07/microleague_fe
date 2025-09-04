@@ -4,7 +4,7 @@ import { SITE } from "@/config/site"
 export function Footer() {
   const footerNavItems = [
     { name: "Simulate", href: "/simulate" },
-    { name: "Recaps", href: "/recaps" },
+    { name: "Coin", href: "/coin" },
     { name: "Community", href: "/community" },
     { name: "About", href: "/about" },
   ]

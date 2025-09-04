@@ -73,7 +73,6 @@ export async function createMatchUpArticle(matchUpResultId: number) {
 }
 
 export async function sendMatchUpToDiscord(matchup: any) {
-    debugger;
   try {
     const discordWebhookUrl =
       "https://discord.com/api/webhooks/1412892293920456925/vOb19lLR_9IoxFsNU8RbdhUc1JkkTGfxK9xQ717-tBhbGMFAcQs-bCAU_e9pezp6WRWk";
