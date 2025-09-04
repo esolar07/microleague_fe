@@ -86,7 +86,7 @@ export function SimulatePage() {
               description="Perfect season offense meets legendary defense in this epic clash."
             />
             <MatchupCard
-              sport="nba"
+              sport="basketball"
               homeTeamSeason="1996"
               homeTeamName="Bulls"
               awayTeamSeason="2018"

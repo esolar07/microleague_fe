@@ -11,8 +11,9 @@ export function Footer() {
 
   return (
     <footer className="border-t bg-background">
-      <div className="container py-8">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+      <div className="container mx-auto py-8 text-center md:text-justify">
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-8 justify-items-center">
+
           {/* Brand */}
           <div className="space-y-3">
             <div className="font-bold text-lg font-mono">MicroLeague</div>

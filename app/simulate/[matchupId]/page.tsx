@@ -100,21 +100,21 @@ const MatchUpDetailsPage = () => {
                     {/* Tabs Header */}
                         <TabsList className="flex justify-around border-b border-gray-200">
                             <TabsTrigger
-                            className="px-4 py-2 text-2xl font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-50 
+                            className="px-4 py-2 text-sm sm:text-base md:text-lg lg:text-xl font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-50 
                                         aria-selected:border-b-2 aria-selected:border-blue-500 aria-selected:text-blue-600"
                             value="home-team"
                             >
                             {gameDetails.home_team.season ? gameDetails.home_team.season : " "} {gameDetails.home_team.name}
                             </TabsTrigger>
                             <TabsTrigger
-                            className="px-4 py-2 text-2xl font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-50 
+                            className="px-4 py-2 text-sm sm:text-base md:text-lg lg:text-xl font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-50 
                                         aria-selected:border-b-2 aria-selected:border-blue-500 aria-selected:text-blue-600"
                             value="game-summary"
                             >
                             Game Summary
                             </TabsTrigger>
                             <TabsTrigger
-                            className="px-4 py-2 text-2xl font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-50 
+                            className="px-4 py-2 text-sm sm:text-base md:text-lg lg:text-xl font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-50 
                                         aria-selected:border-b-2 aria-selected:border-blue-500 aria-selected:text-blue-600"
                             value="away-team"
                             >
