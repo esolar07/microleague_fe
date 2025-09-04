@@ -74,9 +74,6 @@ export async function createMatchUpArticle(matchUpResultId: number) {
 
 export async function sendMatchUpToDiscord(matchup: any) {
   try {
-    const discordWebhookUrl =
-      "https://discord.com/api/webhooks/1412892293920456925/vOb19lLR_9IoxFsNU8RbdhUc1JkkTGfxK9xQ717-tBhbGMFAcQs-bCAU_e9pezp6WRWk";
-
     const payload = {
       content: "⚡ A new matchup has been created!",
       username: "MicroLeague Sim",
@@ -105,7 +102,7 @@ export async function sendMatchUpToDiscord(matchup: any) {
       attachments: [],
     };
     console.log("Discord payload:", payload);
-    const response = await fetch(discordWebhookUrl, {
+    const response = await fetch(process.env.NEXT_PUBLIC_DISCORD_WEBHOOK_URL as string, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),

@@ -1,6 +1,7 @@
 import { PeriodSummary, TeamInfo } from "./matchupArticle";
 
 export interface TeamStats {
+  final_score?: any;
   points?: number;
   rebounds?: number;
   assists?: number;

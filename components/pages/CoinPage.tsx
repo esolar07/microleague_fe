@@ -263,23 +263,27 @@ export function CoinPage() {
               <h3 className="text-xl font-semibold mb-6">Token Distribution</h3>
               <div className="space-y-4">
                 <div className="flex justify-between items-center">
-                  <span>Community Rewards</span>
-                  <span className="font-mono">40%</span>
-                </div>
-                <div className="flex justify-between items-center">
                   <span>Presale</span>
-                  <span className="font-mono">25%</span>
-                </div>
-                <div className="flex justify-between items-center">
-                  <span>Development</span>
                   <span className="font-mono">20%</span>
                 </div>
                 <div className="flex justify-between items-center">
-                  <span>Team</span>
-                  <span className="font-mono">10%</span>
+                  <span>Community Rewards</span>
+                  <span className="font-mono">30%</span>
                 </div>
                 <div className="flex justify-between items-center">
-                  <span>Marketing</span>
+                  <span>Treasury Reserve</span>
+                  <span className="font-mono">25%</span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span>Team & Advisors</span>
+                  <span className="font-mono">15%</span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span>Liquidity & MM</span>
+                  <span className="font-mono">5%</span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span>Ecosystem Partnerships</span>
                   <span className="font-mono">5%</span>
                 </div>
               </div>
@@ -293,11 +297,11 @@ export function CoinPage() {
                 </div>
                 <div className="flex justify-between items-center">
                   <span>Presale Price</span>
-                  <span className="font-mono">$0.10</span>
+                  <span className="font-mono">$0.01</span>
                 </div>
                 <div className="flex justify-between items-center">
                   <span>Launch Price</span>
-                  <span className="font-mono">$0.15</span>
+                  <span className="font-mono">TBD</span>
                 </div>
                 <div className="flex justify-between items-center">
                   <span>Blockchain</span>
@@ -324,7 +328,7 @@ export function CoinPage() {
               <div className="space-y-2">
                 <h3 className="font-semibold">Connect Wallet</h3>
                 <p className="text-sm text-muted-foreground">
-                  Use MetaMask, WalletConnect, or any supported wallet.
+                  Connect Coinbase Wallet, Metamask or any supported wallet
                 </p>
               </div>
             </Card>
@@ -335,7 +339,7 @@ export function CoinPage() {
               <div className="space-y-2">
                 <h3 className="font-semibold">Choose Currency</h3>
                 <p className="text-sm text-muted-foreground">
-                  Pay with ETH, USDT, or USDC.
+                  Pay with USDC.
                 </p>
               </div>
             </Card>
