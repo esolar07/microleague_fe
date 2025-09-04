@@ -3,7 +3,7 @@ import React, {useState} from "react";
 import { Button } from "./ui/button"
 import { Card } from "./ui/card"
 import { Badge } from "./ui/badge"
-import { createMatchUp } from '@/services/api';
+import { createMatchUp, sendMatchUpToDiscord } from '@/services/api';
 import { useRouter } from 'next/navigation';
 import type { MatchupCardProps } from '@/types/matchupCard';
 import LoadingOverlay from "@/components/layout/LoadingOverlay";
@@ -20,8 +20,8 @@ const MatchupCard : React.FC<MatchupCardProps> = ({ sport, homeTeamSeason, homeT
             awayTeamSeason: awayTeamSeason,
             awayTeamName: awayTeamName,
         });
-            
         if (matchUpDetails.id) {
+            sendMatchUpToDiscord(matchUpDetails);
             router.push(`/simulate/${matchUpDetails.id}`);
         }
     };

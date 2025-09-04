@@ -71,3 +71,54 @@ export async function createMatchUpArticle(matchUpResultId: number) {
         return null;
     }
 }
+
+export async function sendMatchUpToDiscord(matchup: any) {
+    debugger;
+  try {
+    const discordWebhookUrl =
+      "https://discord.com/api/webhooks/1412892293920456925/vOb19lLR_9IoxFsNU8RbdhUc1JkkTGfxK9xQ717-tBhbGMFAcQs-bCAU_e9pezp6WRWk";
+
+    const payload = {
+      content: "⚡ A new matchup has been created!",
+      username: "MicroLeague Sim",
+      embeds: [
+        {
+          title: matchup?.data?.game_info?.title ?? "Untitled Matchup",
+          description: matchup?.data?.game_info?.subtitle ?? "",
+          url: `${process.env.NEXT_PUBLIC_MICROLEAGUE_BASE_URL}/simulate/${matchup?.id}`,
+          color: 16753920,
+          fields: [
+            {
+              name: "Home Team",
+              value: `${matchup.data.home_team.season} ${matchup.data.home_team.name}`,
+            },
+            {
+              name: "Away Team",
+              value: `${matchup.data.away_team.season} ${matchup.data.away_team.name}`,
+            },
+          ],
+          footer: {
+            text: "Powered by MicroLeague",
+          },
+          timestamp: new Date().toISOString(),
+        },
+      ],
+      attachments: [],
+    };
+    console.log("Discord payload:", payload);
+    const response = await fetch(discordWebhookUrl, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+
+    if (!response.ok) {
+      const err = await response.text();
+      console.error("Discord webhook error:", response.status, err);
+    } else {
+      console.log("✅ Discord notification sent successfully");
+    }
+  } catch (e) {
+    console.error("Discord notification error:", e);
+  }
+}

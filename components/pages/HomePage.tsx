@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input"
 import Link from "next/link"
 import { ArrowRight, Play, Users, Trophy } from "lucide-react"
 import { useRouter } from 'next/navigation';
-import { createMatchUp } from '@/services/api';
+import { createMatchUp, sendMatchUpToDiscord } from '@/services/api';
 
 export function HomePage() {
   const router = useRouter();
@@ -20,6 +20,7 @@ export function HomePage() {
     });
         
     if (matchUpDetails.id) {
+        sendMatchUpToDiscord(matchUpDetails);
         router.push(`/simulate/${matchUpDetails.id}`);
     }
   }

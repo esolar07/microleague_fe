@@ -2,7 +2,7 @@
 import React, {useState, FormEvent, ChangeEvent} from 'react';
 import Container from "@/components/layout/Container";
 import MatchUpDetailsModal from "@/components/MatchUpDetailsModal";
-import {createMatchUp, fetchSeasons, fetchTeams} from '@/services/api';
+import {createMatchUp, fetchSeasons, fetchTeams, sendMatchUpToDiscord} from '@/services/api';
 import { MatchUp, Team } from '@/types/matchup';
 import { Button } from "@/components/ui/button"
 import { useRouter } from 'next/navigation';
@@ -60,7 +60,7 @@ const MatchUpForm = () => {
         // setShowModal(true);
         console.log(matchUpDetails)
         if (matchUpDetails.id) {
-            setMatchupId(matchUpDetails.id);
+            sendMatchUpToDiscord(matchUpDetails);
             router.push(`/simulate/${matchUpDetails.id}`);
         }
         // setGameDetails(matchUpDetails.data);
