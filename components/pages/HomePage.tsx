@@ -1,4 +1,5 @@
 "use client"
+import React, { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -8,10 +9,13 @@ import { ArrowRight, Play, Users, Trophy } from "lucide-react"
 import { useRouter } from 'next/navigation';
 import { createMatchUp, sendMatchUpToDiscord } from '@/services/api';
 import MatchupCard from "../MatchupCard";
+import LoadingOverlay from "@/components/layout/LoadingOverlay";
 
 export function HomePage() {
   const router = useRouter();
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const createQuickMatchup = async () => {
+    setIsSubmitting(true);
     const matchUpDetails = await createMatchUp({
         sport: "baseball",
         homeTeamSeason: "1986",
@@ -259,5 +263,8 @@ export function HomePage() {
         </div>
       </section>
     </div>
+    {isSubmitting && (
+      <LoadingOverlay text="Simulating Match Up..." />
+    )}
   )
 }

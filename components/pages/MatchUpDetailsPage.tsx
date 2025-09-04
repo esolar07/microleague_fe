@@ -84,7 +84,7 @@ export const MatchUpDetailsPage = () => {
                         <p className="text-sm text-center italic text-gray-600">{gameDetails.game_info.location}</p>
                         <h2 className="text-2xl text-center font-bold">{gameDetails.game_info.subtitle}</h2>
                     </div>
-                    { gameDetails.home_team.game_statistics.final_score && gameDetails.away_team.game_statistics.final_score ? (
+                    { gameDetails.home_team.final_score && gameDetails.away_team.final_score ? (
                     <div className="text-center">
                         <h2 className="mb-5 text-3xl font-bold text-rose-700">Final Score</h2>
 
@@ -95,7 +95,7 @@ export const MatchUpDetailsPage = () => {
                                 {gameDetails.home_team.season} {gameDetails.home_team.name}
                             </span>
                             <span className="text-4xl sm:text-5xl font-extrabold text-black-700 mt-2">
-                                {gameDetails.home_team.game_statistics.final_score}
+                                {gameDetails.home_team.final_score}
                             </span>
                             </div>
 
@@ -107,7 +107,7 @@ export const MatchUpDetailsPage = () => {
                                 {gameDetails.away_team.season} {gameDetails.away_team.name}
                             </span>
                             <span className="text-4xl sm:text-5xl font-extrabold text-black-700 mt-2">
-                                {gameDetails.away_team.game_statistics.final_score}
+                                {gameDetails.away_team.final_score}
                             </span>
                             </div>
                         </div>

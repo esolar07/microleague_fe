@@ -1,7 +1,6 @@
 import { PeriodSummary, TeamInfo } from "./matchupArticle";
 
 export interface TeamStats {
-  final_score?: any;
   points?: number;
   rebounds?: number;
   assists?: number;
@@ -59,6 +58,7 @@ export interface GameDetails {
       era_style: string;
       actual_season_record: string;
       notable_players: string[];
+      final_score: string;
       game_statistics: Record<string, TeamStats>;
       box_score: any[];
       injuries: string[];
@@ -70,6 +70,7 @@ export interface GameDetails {
       era_style: string;
       actual_season_record: string;
       notable_players: string[];
+      final_score: string;
       game_statistics: Record<string, TeamStats>;
       box_score: any[];
       injuries: string[];
