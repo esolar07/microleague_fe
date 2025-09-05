@@ -1,11 +1,43 @@
+"use client";
+import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Input } from "@/components/ui/input"
 import Link from "next/link"
 import { MessageCircle, Users, Trophy, ExternalLink } from "lucide-react"
+import { submitContactMessage } from '@/services/api';
 
 export function CommunityPage() {
+
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    social: "",
+    experience: "",
+    ideas: "",
+  });
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setFormData({ ...formData, [e.target.id]: e.target.value });
+  };
+
+  const onSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const response = await submitContactMessage(formData, process.env.NEXT_PUBLIC_FORMSPARK_CREATOR_ID as string);
+    if (response) {
+      alert("Application submitted successfully!");
+      setFormData({
+        name: "",
+        email: "",
+        social: "",
+        experience: "",
+        ideas: "",
+      });
+    } else {
+      alert("There was an error submitting the form. Try again.");
+    }
+  };
   return (
     <div className="flex flex-col">
       {/* Hero Section */}
@@ -197,49 +229,63 @@ export function CommunityPage() {
             </p>
           </div>
           <Card className="p-8 max-w-2xl mx-auto">
-            <form className="space-y-6">
+            <form className="space-y-6" onSubmit={onSubmit}>
               <div className="grid md:grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <label htmlFor="name" className="text-sm font-medium">
-                    Full Name
-                  </label>
-                  <Input id="name" placeholder="Enter your name" />
+                  <label htmlFor="name" className="text-sm font-medium">Full Name</label>
+                  <Input
+                    id="name"
+                    placeholder="Enter your name"
+                    value={formData.name}
+                    onChange={handleChange}
+                  />
                 </div>
                 <div className="space-y-2">
-                  <label htmlFor="email" className="text-sm font-medium">
-                    Email Address
-                  </label>
-                  <Input id="email" type="email" placeholder="Enter your email" />
+                  <label htmlFor="email" className="text-sm font-medium">Email Address</label>
+                  <Input
+                    id="email"
+                    type="email"
+                    placeholder="Enter your email"
+                    value={formData.email}
+                    onChange={handleChange}
+                  />
                 </div>
               </div>
+
               <div className="space-y-2">
-                <label htmlFor="social" className="text-sm font-medium">
-                  Social Media Handle
-                </label>
-                <Input id="social" placeholder="@yourusername (Twitter, Instagram, etc.)" />
+                <label htmlFor="social" className="text-sm font-medium">Social Media Handle</label>
+                <Input
+                  id="social"
+                  placeholder="@yourusername (Twitter, Instagram, etc.)"
+                  value={formData.social}
+                  onChange={handleChange}
+                />
               </div>
+
               <div className="space-y-2">
-                <label htmlFor="experience" className="text-sm font-medium">
-                  Tell us about your sports content experience
-                </label>
+                <label htmlFor="experience" className="text-sm font-medium">Tell us about your sports content experience</label>
                 <textarea
-                  className="w-full rounded-md border border-input bg-background px-3 py-2" 
                   id="experience"
                   placeholder="Describe your background in sports content creation, audience size, and what makes you passionate about sports debates..."
                   rows={4}
+                  value={formData.experience}
+                  onChange={handleChange}
+                  className="w-full rounded-md border border-input bg-background px-3 py-2"
                 />
               </div>
+
               <div className="space-y-2">
-                <label htmlFor="ideas" className="text-sm font-medium">
-                  What kind of MicroLeague content would you create?
-                </label>
+                <label htmlFor="ideas" className="text-sm font-medium">What kind of MicroLeague content would you create?</label>
                 <textarea
-                  className="w-full rounded-md border border-input bg-background px-3 py-2"
                   id="ideas"
                   placeholder="Share your ideas for simulations, debates, or content series you'd want to create..."
                   rows={3}
+                  value={formData.ideas}
+                  onChange={handleChange}
+                  className="w-full rounded-md border border-input bg-background px-3 py-2"
                 />
               </div>
+
               <Button type="submit" size="lg" className="w-full">
                 Apply for Rivalry Rewards Creator Beta
               </Button>

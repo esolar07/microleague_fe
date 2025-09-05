@@ -118,3 +118,26 @@ export async function sendMatchUpToDiscord(matchup: any) {
     console.error("Discord notification error:", e);
   }
 }
+
+
+export async function submitContactMessage(formData: any, formId: string) {
+  try {
+    const res = await fetch(`https://submit-form.com/${formId}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify({ formData }),
+    });
+
+    if (!res.ok) {
+      throw new Error("Failed to submit message.");
+    }
+
+    return await res.json();
+  } catch (e) {
+    console.error("Error submitting contact message:", e);
+    return null;
+  }
+}

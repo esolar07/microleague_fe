@@ -1,5 +1,6 @@
 import Link from "next/link"
 import { SITE } from "@/config/site"
+import Image from "next/image";
 
 export function Footer() {
   const footerNavItems = [
@@ -15,10 +16,17 @@ export function Footer() {
             <div className="grid grid-cols-1 md:grid-cols-4 gap-8 justify-items-center">
 
           {/* Brand */}
-          <div className="space-y-3">
-            <div className="font-bold text-lg font-mono">MicroLeague</div>
-            <p className="text-sm text-muted-foreground">{SITE.tagline}</p>
-          </div>
+          <Link href="/" className="flex flex-col items-center space-y-3">
+            <Image
+              src="/microleague-sports-beta-logo.png"
+              alt="Microleague Sport Logo"
+              width={150}
+              height={75}
+              style={{objectFit: "contain"}}
+              priority
+            ></Image>
+            <div className="text-sm text-muted-foreground hidden sm:block">{SITE.tagline}</div>
+          </Link>
 
           {/* Navigation */}
           <div className="space-y-3">

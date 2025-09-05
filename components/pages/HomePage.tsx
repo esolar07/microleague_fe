@@ -7,13 +7,15 @@ import { Input } from "@/components/ui/input"
 import Link from "next/link"
 import { ArrowRight, Play, Users, Trophy } from "lucide-react"
 import { useRouter } from 'next/navigation';
-import { createMatchUp, sendMatchUpToDiscord } from '@/services/api';
+import { createMatchUp, sendMatchUpToDiscord, submitContactMessage } from '@/services/api';
 import MatchupCard from "../MatchupCard";
 import LoadingOverlay from "@/components/layout/LoadingOverlay";
+
 
 export function HomePage() {
   const router = useRouter();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [email, setEmail] = useState("")
   const createQuickMatchup = async () => {
     setIsSubmitting(true);
     const matchUpDetails = await createMatchUp({
@@ -27,6 +29,17 @@ export function HomePage() {
     if (matchUpDetails.id) {
         sendMatchUpToDiscord(matchUpDetails);
         router.push(`/simulate/${matchUpDetails.id}`);
+    }
+  }
+   const onSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    try {
+      await submitContactMessage( email, process.env.NEXT_PUBLIC_FORMSPARK_CREATOR_ID as string )
+      alert("Thanks! You're on the waitlist.")
+      setEmail("")
+    } catch (err) {
+      console.error(err)
+      alert("There was an error submitting your email. Try again.")
     }
   }
   return (
@@ -245,24 +258,32 @@ export function HomePage() {
 
       {/* Email Signup */}
       <section className="py-16 px-4 bg-primary text-primary-foreground">
-        <div className="container max-w-4xl mx-auto text-center space-y-8">
-          <div className="space-y-4">
-            <h2 className="text-3xl md:text-4xl font-bold">Get Beta Invites & Early-Access Coins</h2>
-            <p className="text-xl opacity-90">
-              Drop your email to draft early, earn rewards, and vote on new features.
-            </p>
-          </div>
-          <Card className="p-6 max-w-md mx-auto bg-background text-foreground">
-            <form className="space-y-4">
-              <Input type="email" placeholder="Enter your email address" className="w-full" />
-              <Button type="submit" className="w-full">
-                Join the Waitlist
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
-            </form>
-          </Card>
+      <div className="container max-w-4xl mx-auto text-center space-y-8">
+        <div className="space-y-4">
+          <h2 className="text-3xl md:text-4xl font-bold">Get Beta Invites & Early-Access Coins</h2>
+          <p className="text-xl opacity-90">
+            Drop your email to draft early, earn rewards, and vote on new features.
+          </p>
         </div>
-      </section>
+        <Card className="p-6 max-w-md mx-auto bg-background text-foreground">
+          <form className="space-y-4" onSubmit={onSubmit}>
+            <Input
+              type="email"
+              placeholder="Enter your email address"
+              className="w-full"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+            <Button type="submit" className="w-full" disabled={isSubmitting}>
+              {isSubmitting ? "Joining..." : "Join the Waitlist"}
+              <ArrowRight className="ml-2 h-4 w-4" />
+            </Button>
+          </form>
+        </Card>
+      </div>
+    </section>
+
     </div>
   )
 }

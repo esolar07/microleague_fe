@@ -19,6 +19,7 @@ import { erc20Abi } from '@/lib/abis/erc20';
 // } from '@coinbase/onchainkit/wallet';
 import { Avatar, Identity, Name, EthBalance, Address } from '@coinbase/onchainkit/identity';
 import Link from "next/link"
+import { submitContactMessage } from '@/services/api';
 
 const chainName = process.env.NEXT_PUBLIC_CHAIN ?? 'base-sepolia';
 const chainId = 84532;
@@ -33,7 +34,33 @@ const tokenScale = BigInt(10) ** BigInt(TOKEN_DECIMALS);
 export function CoinPage() {
 
   const { address } = useAccount();
-  const [tokensStr, setTokensStr] = useState('100');
+  const [tokensStr, setTokensStr] = useState('1');
+  const [message, setMessage] = useState("");
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    comments: "",
+  });
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setFormData({ ...formData, [e.target.id]: e.target.value });
+  };
+
+  const onSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+      const response = await submitContactMessage(formData, process.env.NEXT_PUBLIC_FORMSPARK_COIN_ID as string);
+      if (response) {
+        alert("Form submitted successfully!");
+        setFormData({ name: "", email: "", phone: "", comments: "" });
+      } else {
+        throw new Error("Form submission failed");
+      }
+    } catch (err) {
+      console.error("Error submitting form:", err);
+      alert("There was an error submitting the form. Please try again.");
+    }
+  };
   const { data: price } = useReadContract({
     address: PRESALE, abi: presaleUsdAbi, functionName: 'pricePerToken', chainId,
   });
@@ -133,40 +160,53 @@ export function CoinPage() {
             </div>
             <div className="lg:order-2">
               <Card className="p-8 max-w-2xl mx-auto">
-                <form className="space-y-6">
+                <form className="space-y-6" onSubmit={onSubmit}>
                   <div className="grid md:grid-cols-2 gap-4">
                     <div className="space-y-2">
-                      <label htmlFor="name" className="text-sm font-medium">
-                        Full Name
-                      </label>
-                      <Input id="name" placeholder="Enter your name" />
+                      <label htmlFor="name" className="text-sm font-medium">Full Name</label>
+                      <Input
+                        id="name"
+                        placeholder="Enter your name"
+                        value={formData.name}
+                        onChange={handleChange}
+                      />
                     </div>
                     <div className="space-y-2">
-                      <label htmlFor="email" className="text-sm font-medium">
-                        Email Address
-                      </label>
-                      <Input id="email" type="email" placeholder="Enter your email" />
+                      <label htmlFor="email" className="text-sm font-medium">Email Address</label>
+                      <Input
+                        id="email"
+                        type="email"
+                        placeholder="Enter your email"
+                        value={formData.email}
+                        onChange={handleChange}
+                      />
                     </div>
                   </div>
+
                   <div className="space-y-2">
-                    <label htmlFor="phone" className="text-sm font-medium">
-                      Phone Number
-                    </label>
-                    <Input id="phone" placeholder="Enter your phone number" />
+                    <label htmlFor="phone" className="text-sm font-medium">Phone Number</label>
+                    <Input
+                      id="phone"
+                      placeholder="Enter your phone number"
+                      value={formData.phone}
+                      onChange={handleChange}
+                    />
                   </div>
+
                   <div className="space-y-2">
-                    <label htmlFor="crypto-experience" className="text-sm font-medium">
-                      Any Questions or Comments
-                    </label>
+                    <label htmlFor="comments" className="text-sm font-medium">Any Questions or Comments</label>
                     <textarea
-                      className="w-full rounded-md border border-input bg-background px-3 py-2" 
                       id="comments"
                       placeholder="Let us know any questions you may have..."
                       rows={4}
+                      value={formData.comments}
+                      onChange={handleChange}
+                      className="w-full rounded-md border border-input bg-background px-3 py-2"
                     />
                   </div>
+
                   <Button type="submit" size="lg" className="w-full">
-                    Reserve Your Spot 
+                    Reserve Your Spot
                   </Button>
                 </form>
               </Card>
