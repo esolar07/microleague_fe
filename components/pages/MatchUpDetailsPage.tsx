@@ -88,55 +88,96 @@ export const MatchUpDetailsPage = () => {
                     <div className="text-center">
                         <h2 className="mb-5 text-3xl font-bold text-rose-700">Final Score</h2>
 
-                        <div className="flex items-center justify-center space-x-6">
-                            {/* Home Team */}
-                            <div className="flex flex-col items-center justify-center bg-white rounded-2xl shadow-lg border border-gray-200 w-40 h-40 px-4 py-4">
-                            <span className="text-sm sm:text-base font-bold text-gray-800 text-center">
-                                {gameDetails.home_team.season} {gameDetails.home_team.name}
-                            </span>
-                            <span className="text-4xl sm:text-5xl font-extrabold text-black-700 mt-2">
-                                {gameDetails.home_team.final_score}
-                            </span>
+                        {/* Desktop: 3 columns (home | vs | away). 
+                            Row 1 = team names, Row 2 = score boxes + vs
+                            Mobile: stacks in markup order */}
+                        <div className="grid grid-cols-1 sm:grid-cols-[1fr_auto_1fr] gap-y-6 sm:gap-y-2 sm:gap-x-16 justify-items-center items-center">
+
+                            {/* Home: names (row 1, col 1) */}
+                            <div className="flex flex-col items-center space-y-1 sm:space-y-2 sm:col-start-1 sm:row-start-1">
+                                <span className="text-lg font-bold text-gray-800 text-center">
+                                    {gameDetails.home_team.season}
+                                </span>
+                                <span className="text-xl sm:text-2xl font-bold text-gray-800 text-center">
+                                    {gameDetails.home_team.name}
+                                </span>
                             </div>
 
-                            <span className="text-2xl font-bold text-gray-500">vs</span>
+                            {/* Home: score box (row 2, col 1) */}
+                            <div className="mt-1 sm:mt-2 flex items-center justify-center bg-white rounded-2xl shadow-lg border border-gray-200 w-28 h-28 sm:w-32 sm:h-32 sm:col-start-1 sm:row-start-2">
+                                <span className="text-3xl sm:text-5xl font-extrabold text-gray-900">
+                                    {gameDetails.home_team.final_score}
+                                </span>
+                            </div>
 
-                            {/* Away Team */}
-                            <div className="flex flex-col items-center justify-center bg-white rounded-2xl shadow-lg border border-gray-200 w-40 h-40 px-4 py-4">
-                            <span className="text-sm sm:text-base font-bold text-gray-800 text-center">
-                                {gameDetails.away_team.season} {gameDetails.away_team.name}
-                            </span>
-                            <span className="text-4xl sm:text-5xl font-extrabold text-black-700 mt-2">
-                                {gameDetails.away_team.final_score}
-                            </span>
+                            {/* VS (row 2, col 2) */}
+                            <div className="sm:col-start-2 sm:row-start-2 flex items-center justify-center">
+                                <span className="text-xl sm:text-2xl font-bold text-gray-500">vs</span>
+                            </div>
+
+                            {/* Away: score box (row 2, col 3) */}
+                            <div className="mt-1 sm:mt-2 flex items-center justify-center bg-white rounded-2xl shadow-lg border border-gray-200 w-28 h-28 sm:w-32 sm:h-32 sm:col-start-3 sm:row-start-2">
+                                <span className="text-3xl sm:text-5xl font-extrabold text-gray-900">
+                                    {gameDetails.away_team.final_score}
+                                </span>
+                            </div>
+
+                            {/* Away: names (row 1, col 3) */}
+                            <div className="flex flex-col items-center space-y-1 sm:space-y-2 sm:col-start-3 sm:row-start-1">
+                                <span className="text-lg font-bold text-gray-800 text-center">
+                                    {gameDetails.away_team.season}
+                                </span>
+                                <span className="text-xl sm:text-2xl font-bold text-gray-800 text-center">
+                                    {gameDetails.away_team.name}
+                                </span>
                             </div>
                         </div>
                     </div>
-                    ) : (
 
+                    ) : (
                     <div className="text-center">
                         <h2 className="mb-5 text-3xl font-bold text-rose-700">Final Score</h2>
-                        <div className="flex items-center justify-center space-x-6">
+
+                        <div className="flex flex-col sm:flex-row items-stretch justify-center sm:space-x-12 space-y-6 sm:space-y-0">
                             {/* Home Team */}
-                            <div className="flex flex-col items-center justify-center bg-white rounded-2xl shadow-lg border border-gray-200 w-40 h-40 px-4 py-4">
+                            <div className="flex flex-col items-center space-y-2">
+                            {/* Team season/name */}
                             <span className="text-sm sm:text-base font-bold text-gray-800 text-center">
-                                    {gameDetails.final_score.split(",")[0].split(" ")[0]}
-                                </span>
-                                <span className="text-4xl font-extrabold text-black-700">
-                                    {gameDetails.final_score.split(",")[0].split(" ")[1]}
+                                {gameDetails.final_score.split(",")[0].split(" ")[0]}
+                            </span>
+                            <span className="text-base sm:text-lg font-bold text-gray-800 text-center">
+                                {gameDetails.final_score.split(",")[0].split(" ")[1]}
+                            </span>
+
+                            {/* Score box */}
+                            <div className="mt-3 sm:mt-4 flex items-center justify-center bg-white rounded-2xl shadow-lg border border-gray-200 w-28 h-28 sm:w-32 sm:h-32">
+                                <span className="text-3xl sm:text-5xl font-extrabold text-black-700">
+                                {gameDetails.home_team.final_score}
                                 </span>
                             </div>
+                            </div>
 
-                            <span className="text-2xl font-bold text-gray-500">vs</span>
+                            {/* VS */}
+                            <div className="flex items-center justify-center">
+                            <span className="text-xl sm:text-2xl font-bold text-gray-500">vs</span>
+                            </div>
 
                             {/* Away Team */}
-                            <div className="flex flex-col items-center justify-center bg-white rounded-2xl shadow-lg border border-gray-200 w-40 h-40 px-4 py-4">
+                            <div className="flex flex-col items-center space-y-2">
+                            {/* Team season/name */}
                             <span className="text-sm sm:text-base font-bold text-gray-800 text-center">
                                 {gameDetails.final_score.split(",")[1].trim().split(" ")[0]}
                             </span>
-                            <span className="text-4xl font-extrabold text-black-700">
+                            <span className="text-base sm:text-lg font-bold text-gray-800 text-center">
                                 {gameDetails.final_score.split(",")[1].trim().split(" ")[1]}
                             </span>
+
+                            {/* Score box */}
+                            <div className="mt-3 sm:mt-4 flex items-center justify-center bg-white rounded-2xl shadow-lg border border-gray-200 w-28 h-28 sm:w-32 sm:h-32">
+                                <span className="text-3xl sm:text-5xl font-extrabold text-black-700">
+                                {gameDetails.away_team.final_score}
+                                </span>
+                            </div>
                             </div>
                         </div>
                     </div>
