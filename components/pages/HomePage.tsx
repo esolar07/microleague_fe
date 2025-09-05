@@ -78,7 +78,7 @@ export function HomePage() {
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">How It Works</h2>
           </div>
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-4 gap-8">
             <Card className="p-6 text-center space-y-4">
               <div className="w-12 h-12 bg-primary text-primary-foreground rounded-full flex items-center justify-center mx-auto font-mono font-bold text-lg">
                 1
@@ -117,9 +117,9 @@ export function HomePage() {
               <div className="space-y-2">
                 <h3 className="font-semibold text-lg">Engage & Earn</h3>
                 <p className="text-muted-foreground">
-                 Earn MicroLegue Coins for writing recaps, creating viral simulations, and engaging the community. The more you earn the more you can influence new sports, features, and platform decisions. (Phase 2)
-                </p>
-              </div>
+                 Earn MicroLegue Coins for writing recaps, creating viral simulations, and engaging the community.
+                 </p>
+                </div>
             </Card>
 
           </div>
