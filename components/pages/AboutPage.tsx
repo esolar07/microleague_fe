@@ -47,9 +47,11 @@ export function AboutPage() {
                 <div className="text-center space-y-4">
                   <div className="text-6xl">🏆</div>
                   <h3 className="text-xl font-semibold">Gaming Pioneer</h3>
-                  <p className="text-sm text-muted-foreground">
-                    First MLB-licensed video game in history
-                  </p>
+                  <p className="text-sm text-muted-foreground">First MLB-licensed video game in history</p>
+                  <p className="text-sm text-muted-foreground">Had Licenses with the MLBPA, NFLPA, and NBAPA</p>
+                  <p className="text-sm text-muted-foreground">Had JV with Sports Illustrated</p>                 
+                  <p className="text-sm text-muted-foreground">Had JV with USA Today for their first fantasy sports game</p>
+                  <p className="text-sm text-muted-foreground">Worked with University of Delaware to have first sim game with live video</p>
                 </div>
               </Card>
             </div>
@@ -79,14 +81,14 @@ export function AboutPage() {
             </div>
             <div className="grid md:grid-cols-2 gap-8 items-center">
               <div className="bg-muted rounded-lg p-8 text-center md:order-1">
-                <div className="text-4xl mb-2">🤼</div>
+                <div className="text-4xl mb-2">⛹🏻‍♀️</div>
                 <div className="text-sm text-muted-foreground">Multi-Sport Expansion</div>
               </div>
               <div className="space-y-4 md:order-2">
                 <Badge variant="retro">1987-1991</Badge>
                 <h3 className="text-xl font-semibold">Golden Years</h3>
                 <p className="text-muted-foreground">
-                  Expansion to wrestling, football, and basketball. Millions of simulations run worldwide.
+                  Expansion to football, basketball, and fantasy sports products. Annual release of new stats for the season. Millions of simulations run worldwide.
                 </p>
               </div>
             </div>

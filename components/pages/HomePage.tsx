@@ -110,6 +110,18 @@ export function HomePage() {
                 </p>
               </div>
             </Card>
+            <Card className="p-6 text-center space-y-4">
+              <div className="w-12 h-12 bg-primary text-primary-foreground rounded-full flex items-center justify-center mx-auto font-mono font-bold text-lg">
+                4
+              </div>
+              <div className="space-y-2">
+                <h3 className="font-semibold text-lg">Engage & Earn</h3>
+                <p className="text-muted-foreground">
+                 Earn MicroLegue Coins for writing recaps, creating viral simulations, and engaging the community. The more you earn the more you can influence new sports, features, and platform decisions. (Phase 2)
+                </p>
+              </div>
+            </Card>
+
           </div>
         </div>
       </section>
@@ -170,13 +182,13 @@ export function HomePage() {
             </div>
             <div className="grid md:grid-cols-2 gap-8 items-center">
               <div className="bg-muted rounded-lg p-8 text-center md:order-1">
-                <div className="text-4xl mb-2">🤼</div>
-                <div className="text-sm text-muted-foreground">Wrestling expansion</div>
+                <div className="text-4xl mb-2">⛹🏻‍♀️</div>
+                <div className="text-sm text-muted-foreground">Multi-sports expansion</div>
               </div>
               <div className="space-y-4 md:order-2">
                 <Badge variant="retro">1987</Badge>
                 <h3 className="text-xl font-semibold">Beyond Baseball</h3>
-                <p className="text-muted-foreground">MicroLeague Wrestling body-slams its way onto Amiga & Atari.</p>
+                <p className="text-muted-foreground">Expansion to football, basketball, and fantasy sports products.</p>
               </div>
             </div>
             <div className="grid md:grid-cols-2 gap-8 items-center">
