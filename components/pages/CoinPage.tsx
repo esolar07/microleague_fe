@@ -401,7 +401,7 @@ export function CoinPage() {
               <div className="space-y-2">
                 <h3 className="font-semibold">Claim Tokens</h3>
                 <p className="text-sm text-muted-foreground">
-                  Available after presale ends.
+                  Available after your purchase.
                 </p>
               </div>
             </Card>
